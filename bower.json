@@ -1,0 +1,20 @@
+{
+  "name": "angular-me",
+  "version": "0.0.0",
+  "authors": [
+    "git-username <git-email-address>"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "angular": "~1.2.21",
+    "angular-route": "~1.2.21",
+    "angular-animate": "~1.2.21",
+    "bootstrap": "~3.2.0",
+    "bootstrap-ui": "~0.11.0",
+    "angular-ui": "~0.4.0",
+    "angular-bootstrap": "~0.11.0",
+    "firebase": "~1.0.19",
+    "angularfire": "~0.8.0",
+    "angular-mocks": "~1.2.21"
+  }
+}
