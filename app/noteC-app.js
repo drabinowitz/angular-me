@@ -10,4 +10,20 @@ angular.module('noteCApp',['ngRoute','ngAnimate','noteCAppViews']).
 
     });
 
+  }]).
+
+  controller('tabCtrl',['$scope',function($scope){
+
+    $scope.tabs = [
+
+      {name : 'Home',
+
+      link : '#!/home'},
+
+      {name : 'NoteDecks',
+
+      link : '#!/noteDecks'},
+
+    ];
+
   }]);

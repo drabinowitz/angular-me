@@ -28,7 +28,7 @@ describe('noteCard', function(){
 
 	it('should correctly attach the directive controller', function() {
 
-		expect( element.find('h3').text() ).toBe('title1');
+		expect( element.find('div').text() ).toContain('title1');
 
 	});
 

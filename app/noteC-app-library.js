@@ -1,25 +1,134 @@
-angular.module('noteCLibrary',[]).
+angular.module('noteCLibrary',['firebase']).
 
-  factory('noteCInfo',function(){
+  constant('NOTEC_FIREBASE_URL','https://burning-fire-8322.firebaseio.com/').
+
+  constant('NOTEC_FIREBASE_DECKS','decks').
+
+  constant('NOTEC_FIREBASE_NOTECARDS','decks/deck={{ deckName }}/noteCards').
+
+  factory('noteCFirebaseRequest',['$http','$q','$firebase','NOTEC_FIREBASE_URL',
+  function($http,$q,$firebase,NOTEC_FIREBASE_URL){
+
+    var locator = function(location){
+
+      var firebaseRef = new Firebase(NOTEC_FIREBASE_URL + location);
+
+      var sync = $firebase(firebaseRef);
+
+      return sync.$asArray();
+
+    };
 
     return {
 
-      get : function(){
+      get : function(location){
 
-        return [
+        return locator(location);
 
-          {name : 'title1',
+      },
 
-          content : 'text1'},
+      add : function(location,obj){
 
-          {name : 'title2',
+        var list = locator(location);
 
-          content : 'text2'}
+        var defer = $q.defer();
 
-        ];
+        list.$add(obj).then(function(ref){
+
+          defer.resolve(list.$indexFor(ref.name()));
+
+        }, function(error){
+
+          defer.reject(error);
+
+        });
+
+        return defer.promise;
+
+      },
+
+      save : function(location,index,name,value){
+
+        var list = locator(location);
+
+        list[index][name] = value;
+
+        var defer = $q.defer();
+
+        list.$save(index).then(function(ref){
+
+          defer.resolve(list.$indexFor(ref.name()));
+
+        }, function(error){
+
+          defer.reject(error);
+
+        });
+
+        return defer.promise;
+
+      },
+
+      remove : function(location,index){
+
+        var list = locator(location);
+
+        var item = list[index];
+
+        var defer = $q.defer();
+
+        list.$remove( item ).then(function(ref){
+
+          defer.resolve(list.$indexFor(ref.name()));
+
+        }, function(error){
+
+          defer.reject(error);
+
+        });
+
+        return defer.promise;
 
       }
 
     }
 
-  });
+  }]).
+
+  factory('noteCDecks',['NOTEC_FIREBASE_DECKS','noteCFirebaseRequest',
+  function(NOTEC_FIREBASE_DECKS, noteCFirebaseRequest){
+
+    return {
+
+      get : function(){
+
+        var path = NOTEC_FIREBASE_DECKS;
+
+        var list = noteCFirebaseRequest.get(path);
+
+        return repackageFirebase(list);
+
+      }
+
+    };
+
+  }]).
+
+  factory('noteCNoteCards',['$interpolate','NOTEC_FIREBASE_NOTECARDS','noteCFirebaseRequest',
+  function($interpolate,NOTEC_FIREBASE_NOTECARDS,noteCFirebaseRequest){
+
+    return {
+
+      get : function(deck){
+
+        var path = $interpolate(NOTEC_FIREBASE_NOTECARDS)({deckName : deck});
+
+        var list = noteCFirebaseRequest.get(path);
+
+        return repackageFirebase(list);
+
+      }
+
+    };
+
+  }]);

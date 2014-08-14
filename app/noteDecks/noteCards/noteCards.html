@@ -1,0 +1,17 @@
+<div class = "filter">
+  
+  <input ng-model="noteFilter" />
+
+  <button ng-click="ctrl.addNoteCard()">+</button>
+
+</div>
+
+<div class="notes">
+
+  <note-card ng-repeat="noteCard in noteCards | orderBy:'name' | filter:noteFilter" note-card-title="{{ noteCard.name }}">
+    
+    {{ noteCard.content }}
+
+  </note-card>
+
+</div>

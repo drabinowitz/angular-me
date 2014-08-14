@@ -1,0 +1,23 @@
+<div class = "filter">
+  
+  <input ng-model="deckFilter" />
+
+  <button ng-click="showAddDeck = true">+</button>
+
+</div>
+
+<form name="addDeckForm" class="addDeckForm" ng-show="showAddDeck">
+  
+
+
+</form>
+
+<div class="notes">
+
+  <note-deck ng-repeat="noteDeck in noteDecks | orderBy:'title' | filter:deckFilter" note-deck-title="{{ noteDeck.title }}" note-deck-number="{{ noteDeck.number }}">
+
+  {{ noteDeck.description }}
+
+  </note-deck>
+
+</div>

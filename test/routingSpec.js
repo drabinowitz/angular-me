@@ -4,7 +4,7 @@ describe('noteC-app-views',function(){
 
 	describe('/home route', function(){
 
-		it('loades the home.html content by default and on button click for Home',
+		it('loades the home.html content on /home route',
 		inject(function($location,$rootScope,$httpBackend,$rootElement,$compile){
 
 			var view = $compile('<div ng-view></div>')($rootScope);
@@ -14,16 +14,18 @@ describe('noteC-app-views',function(){
 			$httpBackend.expect('GET','./home/home.html').respond('...');
 
 			$rootScope.$apply(function() {
-                $location.path('/home');
-            });
+                
+        $location.path('/home');
+            
+      });
 
-            $rootScope.$digest();
+      $rootScope.$digest();
 
 		}));
 
 	});
 
-	describe('/notes route', function(){
+	describe('/noteDecks route', function(){
 
     beforeEach(inject(function($controller, $rootScope) {
 
@@ -37,7 +39,7 @@ describe('noteC-app-views',function(){
 
       scope = $rootScope.$new();
 
-      ctrl = $controller('notesCtrl', {
+      ctrl = $controller('noteDecksCtrl', {
 
         $scope : scope,
 
@@ -47,22 +49,24 @@ describe('noteC-app-views',function(){
 
     }));
 
-		it('loads the countries.html, resolves a request for countries, and attaches the countries controller',
+		it('gets the notecards data on route',
 					inject(function($location,$rootScope,$httpBackend,$rootElement,$compile){
 
 			var view = $compile('<div ng-view></div>')($rootScope);
 
 			$rootElement.append(view);
 
-			$httpBackend.expectGET('./notes/notes.html').respond('...');
+			$httpBackend.expectGET('./noteDecks/noteDecks.html').respond('...');
 
 			$rootScope.$apply(function() {
-                $location.path('/notes');
-            });
+                
+        $location.path('/noteDecks');
+        
+      });
 
-            $rootScope.$digest();
+      $rootScope.$digest();
 
-            expect( scope.noteCards[0].name ).toBe('title1')
+      expect( scope.noteCards[0].name ).toBe('title1')
 
 		}));
 

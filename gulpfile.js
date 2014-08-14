@@ -18,7 +18,7 @@ var testFiles = [
   './node_modules/jasmine-jquery/lib/*.js',
   './app/*.js',
   './app/home/*.js',
-  './app/notes/*.js',
+  './app/noteDecks/*.js',
   './app/noteCard/*.js',
   './app/noteCard/*.html',
   './test/*.js'
