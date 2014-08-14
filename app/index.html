@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="noteCApp">
 <head>
 
-  <title>Angular Me</title>
+  <title>NoteC</title>
   <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap-theme.css">
 
@@ -13,7 +13,17 @@
     
     <div class="page-header">
       
-      <h1>Content Coming Soon</h1>
+      <h1>NoteC</h1>
+
+    </div>
+
+    <div class="noteWrapperRow row">
+      
+      <div class="noteWrapperCol col-md-12">
+        
+        <div class="noteWrapperView" ng-view></div>
+
+      </div>
 
     </div>
 
@@ -26,5 +36,12 @@
   <script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
   <script type="text/javascript" src="bower_components/firebase/firebase.js"></script>
   <script type="text/javascript" src="bower_components/angularfire/dist/angularfire.js"></script>
+  <script type="text/javascript" src="noteC-app-library.js"></script>
+  <script type="text/javascript" src="noteC-app-directives.js"></script>
+  <script type="text/javascript" src="noteCard/noteCard.js"></script>
+  <script type="text/javascript" src="noteC-app-views.js"></script>
+  <script type="text/javascript" src="home/home.js"></script>
+  <script type="text/javascript" src="notes/notes.js"></script>
+  <script type="text/javascript" src="noteC-app.js"></script>
 </body>
 </html>

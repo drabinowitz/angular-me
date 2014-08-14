@@ -10,10 +10,18 @@ var clean = require('gulp-clean');
 var karma = require('gulp-karma');
 
 var testFiles = [
-  './app/bower_components/angular*/*.js',
+  './app/bower_components/angular/angular.js',
+  './app/bower_components/angular-route/angular-route.js',
+  './app/bower_components/angular-animate/angular-animate.js',
+  './app/bower_components/angular-mocks/angular-mocks.js',
   './app/bower_components/jquery/dist/*.js',
   './node_modules/jasmine-jquery/lib/*.js',
-  './app/*.js'
+  './app/*.js',
+  './app/home/*.js',
+  './app/notes/*.js',
+  './app/noteCard/*.js',
+  './app/noteCard/*.html',
+  './test/*.js'
 ];
 
 gulp.task('test', function() {
