@@ -1,4 +1,4 @@
-describe('noteCard', function(){
+describe('noteCDirectives', function(){
 
 	var scope,
 		element,
@@ -8,27 +8,59 @@ describe('noteCard', function(){
 
 	beforeEach(module('noteCDirectives'));
 
-	beforeEach(module('noteCard/noteCard.html'));
+	describe('noteCard',function(){
 
-	beforeEach(inject(function($rootScope, $compile){
+		beforeEach(module('noteCard/noteCard.html'));
 
-		html="";
+		beforeEach(inject(function($rootScope, $compile){
 
-		html += "<note-card note-card-title='title1'></note-card>";
+			html="";
 
-		scope = $rootScope.$new();
+			html += "<note-card note-card-title='title1'></note-card>";
 
-		compiled = $compile(html);
+			scope = $rootScope.$new();
 
-		element = compiled(scope);
+			compiled = $compile(html);
 
-		scope.$digest();
+			element = compiled(scope);
 
-	}));
+			scope.$digest();
 
-	it('should correctly attach the directive controller', function() {
+		}));
 
-		expect( element.find('div').text() ).toContain('title1');
+		it('should correctly attach the directive controller', function() {
+
+			expect( element.find('div').text() ).toContain('title1');
+
+		});
+
+	});
+
+	describe('noteDeck',function(){
+
+		beforeEach(module('noteDeck/noteDeck.html'));
+
+		beforeEach(inject(function($rootScope, $compile){
+
+			html="";
+
+			html += "<note-deck note-deck-title='title1'></note-deck>";
+
+			scope = $rootScope.$new();
+
+			compiled = $compile(html);
+
+			element = compiled(scope);
+
+			scope.$digest();
+
+		}));
+
+		it('should correctly attach the directive controller', function() {
+
+			expect( element.find('h3').text() ).toContain('title1');
+
+		});
 
 	});
 

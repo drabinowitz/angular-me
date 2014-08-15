@@ -27,7 +27,8 @@ module.exports = function(config) {
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
 
-        'app/noteCard/*.html' : 'html2js'
+        'app/noteCard/*.html' : 'html2js',
+        'app/noteDeck/*.html' : 'html2js'
 
     },
 

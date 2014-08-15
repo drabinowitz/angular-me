@@ -14,13 +14,18 @@ var testFiles = [
   './app/bower_components/angular-route/angular-route.js',
   './app/bower_components/angular-animate/angular-animate.js',
   './app/bower_components/angular-mocks/angular-mocks.js',
+  './app/bower_components/firebase/firebase.js',
+  './app/bower_components/angularfire/dist/angularfire.js',
   './app/bower_components/jquery/dist/*.js',
   './node_modules/jasmine-jquery/lib/*.js',
   './app/*.js',
   './app/home/*.js',
   './app/noteDecks/*.js',
+  './app/noteDecks/noteCards/*.js',
   './app/noteCard/*.js',
   './app/noteCard/*.html',
+  './app/noteDeck/*.js',
+  './app/noteDeck/*.html',
   './test/*.js'
 ];
 
