@@ -10,19 +10,19 @@ viewsModule.config(['$routeProvider',function($routeProvider){
 
 }]).
 
-controller('noteDecksCtrl',['$scope','noteCDecks',function($scope,noteCDecks){
+controller('noteDecksCtrl',['$scope','noteCDataStore',function($scope,noteCDataStore){
 
   $scope.showAddDeck = false;
 
   $scope.addDeckInvalid = false;
 
-  $scope.noteDecks = noteCDecks.get();
+  $scope.noteDecks = noteCDataStore.getDecks();
 
   this.addNoteDeck = function(title,description){
 
     if($scope.addDeckForm.$valid){
 
-      noteCDecks.addDeck(title,description);
+      noteCDataStore.addDeck(title,description);
     
       $scope.addDeckInvalid = false;
 
@@ -38,7 +38,7 @@ controller('noteDecksCtrl',['$scope','noteCDecks',function($scope,noteCDecks){
 
   this.getArrayIndex = function(id){
 
-    return noteCDecks.getIndex(id);
+    return noteCDataStore.getIndex(id);
 
   };
 

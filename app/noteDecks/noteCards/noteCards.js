@@ -10,13 +10,13 @@ viewsModule.config(['$routeProvider',function($routeProvider){
 
 }]).
 
-controller('noteCardsCtrl',['$scope','$route','noteCDecks',function($scope,$route,noteCDecks){
+controller('noteCardsCtrl',['$scope','$route','noteCDataStore',function($scope,$route,noteCDataStore){
 
   var index = $route.current.params.noteDeck;
 
   $scope.addCardInvalid = false;
 
-  $scope.noteCards = noteCDecks.get(index);
+  $scope.noteCards = noteCDataStore.getDecks(index);
 
   this.addNoteCard = function(title,content){
 
@@ -24,7 +24,7 @@ controller('noteCardsCtrl',['$scope','$route','noteCDecks',function($scope,$rout
 
       $scope.addCardInvalid = false;
     
-      noteCDecks.addCard(index,title,content);
+      noteCDataStore.addCard(index,title,content);
 
     } else {
 

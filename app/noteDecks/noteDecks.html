@@ -20,9 +20,9 @@
 
 <div class="notes">
 
-  <note-deck ng-repeat="noteDeck in noteDecks | orderBy:'title' | filter:deckFilter" note-deck-title="{{ noteDeck.title }}" note-deck-number="{{ ctrl.getArrayIndex( noteDeck.$id ) }}">
+  <note-deck ng-repeat="(deckName,deckProperties) in noteDecks | orderBy:'title' | filter:deckFilter" note-deck-title="{{ deckName }}">
 
-  {{ noteDeck.description }}
+  {{ deckProperties.description }}
 
   </note-deck>
 

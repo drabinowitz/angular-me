@@ -14,8 +14,6 @@ directivesModule.directive('noteDeck',function() {
 
       scope.title = attrs.noteDeckTitle;
 
-      scope.number = attrs.noteDeckNumber;
-
     }
 
   }

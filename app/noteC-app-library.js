@@ -4,7 +4,7 @@ angular.module('noteCLibrary',['firebase']).
 
   constant('NOTEC_FIREBASE_DECKS','decks').
 
-  constant('NOTEC_FIREBASE_NOTECARDS','decks/deck={{ deckName }}/noteCards').
+  constant('NOTEC_FIREBASE_NOTECARDS','decks/deck={{ deckId }}/noteCards').
 
   factory('noteCFirebaseRequest',['$http','$q','$firebase','NOTEC_FIREBASE_URL',
   function($http,$q,$firebase,NOTEC_FIREBASE_URL){
@@ -15,7 +15,7 @@ angular.module('noteCLibrary',['firebase']).
 
       var sync = $firebase(firebaseRef);
 
-      return sync.$asArray();
+      return sync.$asObject();
 
     };
 
@@ -25,7 +25,7 @@ angular.module('noteCLibrary',['firebase']).
 
         return locator(location);
 
-      },
+      }/*,
 
       add : function(location,obj){
 
@@ -89,28 +89,32 @@ angular.module('noteCLibrary',['firebase']).
 
         return defer.promise;
 
-      }
+      }*/
 
     }
 
   }]).
 
-  factory('noteCDataStore',['$interpolate','noteCFirebaseRequest','NOTEC_FIREBASE_DECKS','NOTEC_FIREBASE_NOTECARDS',
-  function($interpolate,noteCFirebaseRequest,NOTEC_FIREBASE_DECKS,NOTEC_FIREBASE_NOTECARDS){
+  factory('noteCDataStore',['$q','$interpolate','noteCFirebaseRequest','NOTEC_FIREBASE_DECKS','NOTEC_FIREBASE_NOTECARDS',
+  function($q,$interpolate,noteCFirebaseRequest,NOTEC_FIREBASE_DECKS,NOTEC_FIREBASE_NOTECARDS){
 
     var decks;
 
     return {
 
-      getDecks : function(){
+      getDecks : function(index){
 
-        if(decks){
-
-          return decks;
-
-        } else {
+        if(!decks){
 
           decks = noteCFirebaseRequest.get(NOTEC_FIREBASE_DECKS);
+
+        }
+
+        if(index){
+
+          return decks.$keyAt(id);
+
+        } else {
 
           return decks;
 
@@ -118,19 +122,35 @@ angular.module('noteCLibrary',['firebase']).
 
       },
 
-      add : function(obj){
+      addDeck : function(title,description){
 
-        noteCFirebaseRequest.add(NOTEC_FIREBASE_DECKS,obj)
+        var inputDescription = description || '';
+
+        decks[title] = {description : inputDescription, noteCards : {}}
+
+        var defer = $q.defer();
+
+        decks.$save().then(function(ref){
+
+          defer.resolve(ref.name());
+
+        }, function(error){
+
+          defer.reject(error);
+
+        });
+
+        return defer.promise;
 
       },
 
-      addCard : function(deck,obj){
+      addCard : function(deck,title,description){
 
-        var path = $interpolate(NOTEC_FIREBASE_NOTECARDS)({deckName : deck});
+        var path = $interpolate(NOTEC_FIREBASE_NOTECARDS)({deckId : deck});
 
-        noteCFirebaseRequest
+        // noteCFirebaseRequest
 
-      }
+      },
 
       getIndex : function(id){
 
@@ -140,7 +160,7 @@ angular.module('noteCLibrary',['firebase']).
 
     };
 
-  }]).
+  }])/*.
 
   factory('noteCDecks',['noteCDataStore',
   function(noteCDataStore){
@@ -218,4 +238,4 @@ angular.module('noteCLibrary',['firebase']).
 
     };
 
-  }]);
+  }])*/;
