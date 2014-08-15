@@ -95,18 +95,75 @@ angular.module('noteCLibrary',['firebase']).
 
   }]).
 
-  factory('noteCDecks',['NOTEC_FIREBASE_DECKS','noteCFirebaseRequest',
-  function(NOTEC_FIREBASE_DECKS, noteCFirebaseRequest){
+  factory('noteCDataStore',['noteCFirebaseRequest','NOTEC_FIREBASE_DECKS','NOTEC_FIREBASE_NOTECARDS',
+  function(noteCFirebaseRequest,NOTEC_FIREBASE_DECKS,NOTEC_FIREBASE_NOTECARDS){
+
+    var decks;
+
+    return {
+
+      getDecks : function(){
+
+        if(decks){
+
+          return decks;
+
+        } else {
+
+          decks = noteCFirebaseRequest.get(NOTEC_FIREBASE_DECKS);
+
+          return decks;
+
+        }
+
+      },
+
+      add : function(obj){
+
+        noteCFirebaseRequest.add(NOTEC_FIREBASE_DECKS,obj)
+
+      },
+
+      getIndex : function(id){
+
+        return decks.$indexFor(id);
+
+      }
+
+    };
+
+  }]).
+
+  factory('noteCDecks',['noteCDataStore',
+  function(noteCDataStore){
 
     return {
 
       get : function(){
 
-        var path = NOTEC_FIREBASE_DECKS;
+        return list = noteCDataStore.getDecks();
 
-        var list = noteCFirebaseRequest.get(path);
+      },
 
-        return repackageFirebase(list);
+      add : function(title,description){
+
+        var inputDescription = description || '';
+
+        var obj = {
+
+          title : title,
+
+          description : inputDescription
+
+        };
+
+        return noteCDataStore.add(obj);
+
+      },
+
+      getIndex : function(id){
+
+        return noteCDataStore.getIndex(id);
 
       }
 
@@ -123,9 +180,7 @@ angular.module('noteCLibrary',['firebase']).
 
         var path = $interpolate(NOTEC_FIREBASE_NOTECARDS)({deckName : deck});
 
-        var list = noteCFirebaseRequest.get(path);
-
-        return repackageFirebase(list);
+        return list = noteCFirebaseRequest.get(path);
 
       }
 

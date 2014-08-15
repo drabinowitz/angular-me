@@ -6,15 +6,21 @@
 
 </div>
 
-<form name="addDeckForm" class="addDeckForm" ng-show="showAddDeck">
+<form name="addDeckForm" class="addDeckForm" ng-show="showAddDeck" ng-submit="ctrl.addNoteDeck(addDeckTitle,addDeckDescription)" novalidate>
   
+  <input type="text" placeholder="Deck Name" ng-required="true" ng-model="addDeckTitle">
 
+  <input type="textarea" placeholder="Deck description (optional)" ng-model="addDeckDescription">
+
+  <input type="submit"> 
+
+  <p ng-show="addDeckInvalid">Please Provide a Valid Deck Name</p>
 
 </form>
 
 <div class="notes">
 
-  <note-deck ng-repeat="noteDeck in noteDecks | orderBy:'title' | filter:deckFilter" note-deck-title="{{ noteDeck.title }}" note-deck-number="{{ noteDeck.number }}">
+  <note-deck ng-repeat="noteDeck in noteDecks | orderBy:'title' | filter:deckFilter" note-deck-title="{{ noteDeck.title }}" note-deck-number="{{ ctrl.getArrayIndex( noteDeck.$id ) }}">
 
   {{ noteDeck.description }}
 
