@@ -4,7 +4,7 @@ angular.module('noteCLibrary',['firebase']).
 
   constant('NOTEC_FIREBASE_DECKS','decks').
 
-  constant('NOTEC_FIREBASE_NOTECARDS','decks/deck={{ deckId }}/noteCards').
+  constant('NOTEC_FIREBASE_NOTECARDS','decks/{{ deckName }}/noteCards').
 
   factory('noteCFirebaseRequest',['$http','$q','$firebase','NOTEC_FIREBASE_URL',
   function($http,$q,$firebase,NOTEC_FIREBASE_URL){
@@ -100,9 +100,11 @@ angular.module('noteCLibrary',['firebase']).
 
     var decks;
 
+    var cards = {};
+
     return {
 
-      getDecks : function(index){
+      getDecks : function(){
 
         if(!decks){
 
@@ -110,15 +112,21 @@ angular.module('noteCLibrary',['firebase']).
 
         }
 
-        if(index){
+        return decks;
 
-          return decks.$keyAt(id);
+      },
 
-        } else {
+      getCards : function(deckName){
 
-          return decks;
+        if(!cards[deckName]){
+
+          var path = $interpolate(NOTEC_FIREBASE_NOTECARDS)({deckName : deckName});
+
+          cards[deckName] = noteCFirebaseRequest.get(path);
 
         }
+
+        return cards[deckName];
 
       },
 
@@ -126,7 +134,7 @@ angular.module('noteCLibrary',['firebase']).
 
         var inputDescription = description || '';
 
-        decks[title] = {description : inputDescription, noteCards : {}}
+        decks[title] = {description : inputDescription}
 
         var defer = $q.defer();
 
@@ -144,11 +152,25 @@ angular.module('noteCLibrary',['firebase']).
 
       },
 
-      addCard : function(deck,title,description){
+      addCard : function(deckName,title,content){
 
-        var path = $interpolate(NOTEC_FIREBASE_NOTECARDS)({deckId : deck});
+        var inputContent = content || '';
 
-        // noteCFirebaseRequest
+        cards[deckName][title] = {content : inputContent};
+
+        var defer = $q.defer();
+
+        cards[deckName].$save().then(function(ref){
+
+          defer.resolve(ref.name());
+
+        }, function(error){
+
+          defer.reject(error);
+
+        });
+
+        return defer.promise;
 
       },
 
