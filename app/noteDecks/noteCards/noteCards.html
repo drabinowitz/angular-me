@@ -1,14 +1,24 @@
 <div class = "filter">
   
-  <input ng-model="noteFilter" />
-
-  <button ng-click="ctrl.addNoteCard()">+</button>
+  <input ng-model="cardFilter" />
 
 </div>
 
-<div class="notes">
+<form name="addCardForm" class="addCardForm" ng-submit="ctrl.addNoteCard(addCardTitle,addCardContent)" novalidate>
+  
+  <input type="text" placeholder="Card Name" ng-required="true" ng-model="addCardTitle">
 
-  <note-card ng-repeat="noteCard in noteCards | orderBy:'name' | filter:noteFilter" note-card-title="{{ noteCard.name }}">
+  <input type="textarea" placeholder="Card Content" ng-model="addCardContent">
+
+  <input type="submit"> 
+
+  <p ng-show="addCardInvalid">Please Provide Valid Card Name and Content</p>
+
+</form>
+
+<div class="cards">
+
+  <note-card ng-repeat="noteCard in noteCards | orderBy:'title' | filter:cardFilter" note-card-title="{{ noteCard.name }}">
     
     {{ noteCard.content }}
 

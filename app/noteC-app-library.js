@@ -95,8 +95,8 @@ angular.module('noteCLibrary',['firebase']).
 
   }]).
 
-  factory('noteCDataStore',['noteCFirebaseRequest','NOTEC_FIREBASE_DECKS','NOTEC_FIREBASE_NOTECARDS',
-  function(noteCFirebaseRequest,NOTEC_FIREBASE_DECKS,NOTEC_FIREBASE_NOTECARDS){
+  factory('noteCDataStore',['$interpolate','noteCFirebaseRequest','NOTEC_FIREBASE_DECKS','NOTEC_FIREBASE_NOTECARDS',
+  function($interpolate,noteCFirebaseRequest,NOTEC_FIREBASE_DECKS,NOTEC_FIREBASE_NOTECARDS){
 
     var decks;
 
@@ -124,6 +124,14 @@ angular.module('noteCLibrary',['firebase']).
 
       },
 
+      addCard : function(deck,obj){
+
+        var path = $interpolate(NOTEC_FIREBASE_NOTECARDS)({deckName : deck});
+
+        noteCFirebaseRequest
+
+      }
+
       getIndex : function(id){
 
         return decks.$indexFor(id);
@@ -139,13 +147,23 @@ angular.module('noteCLibrary',['firebase']).
 
     return {
 
-      get : function(){
+      get : function(index){
 
-        return list = noteCDataStore.getDecks();
+        var list = noteCDataStore.getDecks();
+
+        if(index){
+
+          return list.$keyAt(index);
+
+        } else {
+
+          return list;
+
+        }
 
       },
 
-      add : function(title,description){
+      addDeck : function(title,description){
 
         var inputDescription = description || '';
 
@@ -158,6 +176,20 @@ angular.module('noteCLibrary',['firebase']).
         };
 
         return noteCDataStore.add(obj);
+
+      },
+
+      addCard : function(deck,title,content){
+
+        var obj {
+
+          title : title,
+
+          content : content
+
+        };
+
+        return noteCDataStore.addCard(deck,obj);
 
       },
 

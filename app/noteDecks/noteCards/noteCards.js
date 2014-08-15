@@ -10,14 +10,28 @@ viewsModule.config(['$routeProvider',function($routeProvider){
 
 }]).
 
-controller('noteCardsCtrl',['$scope','$route','noteCNoteCards',function($scope,$route,noteCNoteCards){
+controller('noteCardsCtrl',['$scope','$route','noteCDecks',function($scope,$route,noteCDecks){
 
-  $scope.noteCards = noteCNoteCards.get( $route.current.params.noteDeck );
+  var index = $route.current.params.noteDeck;
 
-  this.addNoteCard = function(){
+  $scope.addCardInvalid = false;
 
-    console.log('this');
+  $scope.noteCards = noteCDecks.get(index);
 
-  }
+  this.addNoteCard = function(title,content){
+
+    if($scope.addCardForm.$valid){
+
+      $scope.addCardInvalid = false;
+    
+      noteCDecks.addCard(index,title,content);
+
+    } else {
+
+      $scope.addCardInvalid = true;
+
+    }
+
+  };
 
 }]);

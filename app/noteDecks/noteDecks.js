@@ -22,9 +22,11 @@ controller('noteDecksCtrl',['$scope','noteCDecks',function($scope,noteCDecks){
 
     if($scope.addDeckForm.$valid){
 
-      $scope.addDeckInvalid = false;
+      noteCDecks.addDeck(title,description);
     
-      noteCDecks.add(title,description);
+      $scope.addDeckInvalid = false;
+
+      $scope.showAddDeck = false;
 
     } else {
 
