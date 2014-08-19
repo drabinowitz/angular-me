@@ -91,10 +91,12 @@ angular.module('noteCLibrary',['firebase']).
 
   }]).
 
-  factory('noteCDataStore',['$q','$interpolate','noteCFirebaseRequest','noteCPromiseGenerator','NOTEC_FIREBASE_DECKS',
-  function($q,$interpolate,noteCFirebaseRequest,noteCPromiseGenerator,NOTEC_FIREBASE_DECKS){
+  factory('noteCDataStore',['$q','$interpolate','noteCFirebaseRequest','noteCPromiseGenerator','NOTEC_FIREBASE_DECKS','NOTEC_FIREBASE_NOTECARDS',
+  function($q,$interpolate,noteCFirebaseRequest,noteCPromiseGenerator,NOTEC_FIREBASE_DECKS,NOTEC_FIREBASE_NOTECARDS){
 
     var decks;
+
+    var cards = {};
 
     function queryForDecks (){
 
@@ -112,31 +114,39 @@ angular.module('noteCLibrary',['firebase']).
 
     }
 
+    function queryForCards(deckName){
+
+      if(!cards[deckName]){
+
+        var path = $interpolate(NOTEC_FIREBASE_NOTECARDS)({deckName : deckName});
+
+        cards[deckName] = noteCFirebaseRequest.get(path);
+
+        return noteCPromiseGenerator.objectStandard(cards[deckName],'$loaded');
+
+      } else {
+
+        return noteCPromiseGenerator.instant(cards[deckName]);
+
+      }
+
+    }
+
     return {
 
       getDecks : function(){
 
-        return queryForDecks();
+        return noteCPromiseGenerator.standard(queryForDecks);
 
       },
 
       getCards : function(deckName){
 
-        return noteCPromiseGenerator.standard(queryForDecks,function(data){
+        return noteCPromiseGenerator.standard(function(){
 
-          return data[deckName].noteCards;
-
-        });
-
-/*        var defer = $q.defer();
-
-        queryForDecks().then(function(){
-
-          defer.resolve(decks[deckName].noteCards);
+          return queryForCards.apply(null,[deckName]);
 
         });
-
-        return defer.promise;*/
 
       },
 
@@ -146,21 +156,7 @@ angular.module('noteCLibrary',['firebase']).
 
         decks[title] = {description : inputDescription}
 
-        noteCPromiseGenerator.Objectstandard(decks,'$save');
-
-/*        var defer = $q.defer();
-
-        decks.$save().then(function(ref){
-
-          defer.resolve(ref.name());
-
-        }, function(error){
-
-          defer.reject(error);
-
-        });
-
-        return defer.promise;*/
+        return noteCPromiseGenerator.objectStandard(decks,'$save');
 
       },
 
@@ -168,9 +164,17 @@ angular.module('noteCLibrary',['firebase']).
 
         var inputContent = content || '';
 
-        decks[deckName][title] = {content : inputContent};
+        if(!cards[deckName].noteCards){
 
-        var defer = $q.defer();
+          cards[deckName].noteCards = {};
+
+        }
+
+        cards[deckName].noteCards[title] = {content : inputContent};
+
+        return noteCPromiseGenerator.objectStandard(cards[deckName],'$save');
+
+/*        var defer = $q.defer();
 
         decks[deckName].$save().then(function(ref){
 
@@ -182,7 +186,7 @@ angular.module('noteCLibrary',['firebase']).
 
         });
 
-        return defer.promise;
+        return defer.promise;*/
 
       },
 
