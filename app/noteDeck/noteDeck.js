@@ -1,4 +1,4 @@
-directivesModule.directive('noteDeck',function() {
+directivesModule.directive('noteDeck',['noteCDataStore',function(noteCDataStore) {
 
   return {
 
@@ -14,8 +14,18 @@ directivesModule.directive('noteDeck',function() {
 
       scope.title = attrs.noteDeckTitle;
 
+      scope.showDelete = false;
+
+      scope.deleteDeck = function(title){
+
+        noteCDataStore.deleteDeck(title);
+
+        scope.showDelete = false;
+
+      };
+
     }
 
   }
 
-});
+}]);

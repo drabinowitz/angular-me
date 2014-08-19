@@ -110,9 +110,43 @@ angular.module('noteCLibrary',['firebase']).
 
       },
 
-      getIndex : function(id){
+      deleteDeck : function(title){
 
-        return decks.$indexFor(id);
+        delete decks[title];
+
+        var defer = $q.defer();
+
+        decks.$save().then(function(ref){
+
+          defer.resolve(ref.name());
+
+        }, function(error){
+
+          defer.reject(error);
+
+        });
+
+        return defer.promise;
+
+      },
+
+      deleteCard : function(deckTitle,title){
+
+        delete decks[deckTitle][title];
+
+        var defer = $q.defer();
+
+        decks.$save().then(function(ref){
+
+          defer.resolve(ref.name());
+
+        }, function(error){
+
+          defer.reject(error);
+
+        });
+
+        return defer.promise;
 
       }
 

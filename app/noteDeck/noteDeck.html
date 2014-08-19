@@ -1,7 +1,19 @@
-<a ng-href="#!/noteDecks/{{ title }}/noteCards"><div>
+<div>
   
-  <h3>{{ title }}</h3>
+  <a ng-href="#!/noteDecks/{{ title }}/noteCards"><h3>{{ title }}</h3></a>
 
   <div ng-transclude></div>
 
-</div></a>
+  <button ng-click="showDelete = true">X</button>
+
+  <div class="deleteDeck" ng-show="showDelete">
+
+    <p>Are you sure you want to delete this deck?  This action cannot be reversed</p>
+
+    <button ng-click="deleteDeck(title)">Delete</button>
+
+    <button ng-click="showDelete = false">Cancel</button>
+
+  </div>
+
+</div>
