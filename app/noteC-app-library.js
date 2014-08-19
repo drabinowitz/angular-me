@@ -36,33 +36,59 @@ angular.module('noteCLibrary',['firebase']).
 
     var decks;
 
-    var cards = {};
+    // var cards = {};
+
+    function queryForDecks (){
+
+      var defer = $q.defer();
+
+      if(!decks){
+
+        decks = noteCFirebaseRequest.get(NOTEC_FIREBASE_DECKS);
+
+        decks.$loaded(function(){ 
+
+          defer.resolve(decks);
+
+        });
+
+      } else {
+
+        defer.resolve(decks);
+
+      }
+
+      return defer.promise;
+
+    }
 
     return {
 
       getDecks : function(){
 
-        if(!decks){
-
-          decks = noteCFirebaseRequest.get(NOTEC_FIREBASE_DECKS);
-
-        }
-
-        return decks;
+        return queryForDecks();
 
       },
 
       getCards : function(deckName){
 
-        if(!cards[deckName]){
+        /*if(!cards[deckName]){
 
           var path = $interpolate(NOTEC_FIREBASE_NOTECARDS)({deckName : deckName});
 
           cards[deckName] = noteCFirebaseRequest.get(path);
 
-        }
+        }*/
 
-        return cards[deckName];
+        var defer = $q.defer();
+
+        queryForDecks().then(function(){
+
+          defer.resolve(decks[deckName].noteCards);
+
+        });
+
+        return defer.promise;
 
       },
 
@@ -92,11 +118,11 @@ angular.module('noteCLibrary',['firebase']).
 
         var inputContent = content || '';
 
-        cards[deckName][title] = {content : inputContent};
+        decks[deckName][title] = {content : inputContent};
 
         var defer = $q.defer();
 
-        cards[deckName].$save().then(function(ref){
+        decks[deckName].$save().then(function(ref){
 
           defer.resolve(ref.name());
 
@@ -130,9 +156,9 @@ angular.module('noteCLibrary',['firebase']).
 
       },
 
-      deleteCard : function(deckTitle,title){
+      deleteCard : function(deckName,cardName){
 
-        delete decks[deckTitle][title];
+        delete decks[deckName].noteCards[cardName];
 
         var defer = $q.defer();
 

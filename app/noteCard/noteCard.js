@@ -1,4 +1,4 @@
-directivesModule.directive('noteCard',function() {
+directivesModule.directive('noteCard',['noteCDataStore',function(noteCDataStore) {
 
   return {
 
@@ -14,8 +14,16 @@ directivesModule.directive('noteCard',function() {
 
       scope.title = attrs.noteCardTitle;
 
+      scope.deckName = attrs.noteCardDeck;
+
+      scope.deleteCard = function(deckName,cardTitle){
+
+        noteCDataStore.deleteCard(deckName,cardTitle);
+
+      }
+
     }
 
   }
 
-});
+}]);

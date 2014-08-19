@@ -6,7 +6,7 @@ describe('noteCDirectives', function(){
 		html,
 		ctrl;
 
-	beforeEach(module('noteCDirectives'));
+	beforeEach(module('noteCApp'));
 
 	describe('noteCard',function(){
 

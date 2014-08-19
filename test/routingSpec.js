@@ -1,6 +1,6 @@
 describe('noteC-app-views',function(){
 
-	beforeEach( module('noteCAppViews') );
+	beforeEach( module('noteCApp') );
 
 	describe('/home route', function(){
 

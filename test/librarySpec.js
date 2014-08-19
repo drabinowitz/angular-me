@@ -1,6 +1,6 @@
 describe('noteCLibrary',function(){
 
-	beforeEach( module('noteCLibrary') );
+	beforeEach( module('noteCApp') );
 
 	describe('noteCFirebaseRequest',function(){
 

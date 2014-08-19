@@ -16,7 +16,11 @@ controller('noteDecksCtrl',['$scope','noteCDataStore',function($scope,noteCDataS
 
   $scope.addDeckInvalid = false;
 
-  $scope.noteDecks = noteCDataStore.getDecks();
+  var promise = noteCDataStore.getDecks().then(function(result){
+
+    $scope.noteDecks = result;
+
+  });
 
   this.addNoteDeck = function(title,description){
 
