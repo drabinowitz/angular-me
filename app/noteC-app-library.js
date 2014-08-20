@@ -164,29 +164,9 @@ angular.module('noteCLibrary',['firebase']).
 
         var inputContent = content || '';
 
-        if(!cards[deckName].noteCards){
-
-          cards[deckName].noteCards = {};
-
-        }
-
-        cards[deckName].noteCards[title] = {content : inputContent};
+        cards[deckName][title] = {content : inputContent};
 
         return noteCPromiseGenerator.objectStandard(cards[deckName],'$save');
-
-/*        var defer = $q.defer();
-
-        decks[deckName].$save().then(function(ref){
-
-          defer.resolve(ref.name());
-
-        }, function(error){
-
-          defer.reject(error);
-
-        });
-
-        return defer.promise;*/
 
       },
 
@@ -194,39 +174,15 @@ angular.module('noteCLibrary',['firebase']).
 
         delete decks[title];
 
-        var defer = $q.defer();
-
-        decks.$save().then(function(ref){
-
-          defer.resolve(ref.name());
-
-        }, function(error){
-
-          defer.reject(error);
-
-        });
-
-        return defer.promise;
+        return noteCPromiseGenerator.objectStandard(decks,'$save');
 
       },
 
-      deleteCard : function(deckName,cardName){
+      deleteCard : function(deckName,title){
 
-        delete decks[deckName].noteCards[cardName];
+        delete cards[deckName][title];
 
-        var defer = $q.defer();
-
-        decks.$save().then(function(ref){
-
-          defer.resolve(ref.name());
-
-        }, function(error){
-
-          defer.reject(error);
-
-        });
-
-        return defer.promise;
+        return noteCPromiseGenerator.objectStandard(cards[deckName],'$save');
 
       }
 
