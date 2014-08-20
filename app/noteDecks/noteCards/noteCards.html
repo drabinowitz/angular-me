@@ -18,7 +18,7 @@
 
 <div class="cards">
 
-  <note-card ng-repeat="(cardName,cardProperties) in noteCards | with:cardFilter" note-card-deck="{{ deckName }}" note-card-title="{{ cardName }}">
+  <note-card ng-repeat="(cardName,cardProperties) in noteCards | with:cardFilter" note-card-deck="{{ deckName }}" note-card-title="{{ cardName }}" note-card-content="{{ cardProperties.content }}">
     
     {{ cardProperties.content }}
 

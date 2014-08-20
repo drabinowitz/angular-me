@@ -12,13 +12,20 @@ viewsModule.filter('with', function() {
 
     angular.forEach(items, function(value, key) {
 
-        if (key.match(regex) || 
+        if (key.match(regex) ||
+
         (value &&
+
           typeof value === 'object' &&
+
           (
+
             (value.hasOwnProperty('description') && value.description.match(regex)) ||
+
             (value.hasOwnProperty('content') && value.content.match(regex))
+
           )
+        
         )) {
 
             result[key] = value;

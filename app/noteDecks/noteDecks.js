@@ -40,10 +40,4 @@ controller('noteDecksCtrl',['$scope','noteCDataStore',function($scope,noteCDataS
 
   };
 
-  this.getArrayIndex = function(id){
-
-    return noteCDataStore.getIndex(id);
-
-  };
-
 }]);
