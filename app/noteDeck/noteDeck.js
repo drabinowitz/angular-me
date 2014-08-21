@@ -14,6 +14,8 @@ directivesModule.directive('noteDeck',['noteCDataStore',function(noteCDataStore)
 
       scope.title = attrs.noteDeckTitle;
 
+      scope.deckDescription = attrs.noteDeckDescription;
+
       scope.showDelete = false;
 
       scope.deleteDeck = function(title){
@@ -23,6 +25,30 @@ directivesModule.directive('noteDeck',['noteCDataStore',function(noteCDataStore)
         scope.showDelete = false;
 
       };
+
+      scope.showEditForm = function(){
+
+        scope.showEdit = true;
+
+        scope.editTitle = scope.title;
+
+        scope.editDescription = scope.deckDescription;
+
+      }
+
+      scope.submit = function(editTitle,editDescription){
+
+        noteCDataStore.editDeck(scope.title,editTitle,editDescription);
+
+        scope.showEdit = false;
+
+      }
+
+      scope.hideEdit = function(){
+
+        scope.showEdit = false;
+
+      }
 
     }
 

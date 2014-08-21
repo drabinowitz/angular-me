@@ -194,6 +194,26 @@ angular.module('noteCLibrary',['firebase']).
 
       },
 
+      editDeck : function(title,editTitle,editDescription){
+
+        if(title == editTitle){
+
+          decks[title].description = editDescription;
+
+          return noteCPromiseGenerator.objectStandard(decks,'$save');
+
+        } else if (decks[editTitle] == undefined){
+
+          var dataStore = this;
+
+          decks[editTitle] = decks[title];
+
+          return dataStore.deleteDeck(title);
+
+        }
+
+      },
+
       editCard : function(deckName,title,editTitle,editContent){
 
         if(title == editTitle){
@@ -206,15 +226,9 @@ angular.module('noteCLibrary',['firebase']).
 
           var dataStore = this;
 
-          noteCPromiseGenerator.standard(function(){
+          cards[deckName][editTitle] = cards[deckName][title];
 
-            return dataStore.addCard(deckName,editTitle,editContent);
-
-          },function(){
-
-            return dataStore.deleteCard(deckName,title);
-
-          })
+          return dataStore.deleteCard(deckName,title);
 
         }
 

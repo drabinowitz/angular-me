@@ -20,7 +20,7 @@
 
 <div class="notes">
 
-  <note-deck ng-repeat="(deckName,deckProperties) in noteDecks | with:deckFilter" note-deck-title="{{ deckName }}">
+  <note-deck ng-repeat="(deckName,deckProperties) in noteDecks | with:deckFilter" note-deck-title="{{ deckName }}" note-deck-description="{{ deckProperties.description }}">
 
   {{ deckProperties.description }}
 

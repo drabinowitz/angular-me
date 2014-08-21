@@ -42,6 +42,12 @@ directivesModule.directive('noteCard',['noteCDataStore',function(noteCDataStore)
 
       }
 
+      scope.hideEdit = function(){
+
+        scope.showEdit = false;
+
+      }
+
     }
 
   }

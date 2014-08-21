@@ -8,7 +8,9 @@
 
   <button ng-click="showEditForm()">Edit</button>
 
-  <form name="editForm" class="editCard" ng-submit="editForm.$valid && submit(editTitle,editContent)" ng-if="showEdit" novalidate>
+  <div ng-if="showEdit">
+
+  <form name="editForm" class="editCard" ng-submit="editForm.$valid && submit(editTitle,editContent)" novalidate>
     
     <label for="title">Edit Card Name: </label>
 
@@ -16,12 +18,14 @@
 
     <label for="content">Edit Card Content: </label>
 
-    <textarea name="content" ng-required="true" ng-model="editContent"></textarea>
+    <textarea name="content" ng-model="editContent"></textarea>
 
     <input type="submit" value="Save">
 
-    <button ng-click="showEdit = false">Cancel</button>
-
   </form>
+
+  <button ng-click="hideEdit()">Cancel</button>
+
+  </div>
 
 </div>

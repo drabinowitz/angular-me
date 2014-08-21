@@ -16,4 +16,26 @@
 
   </div>
 
+  <button ng-click="showEditForm()">Edit</button>
+
+  <div ng-if="showEdit">
+
+  <form name="editForm" class="editDeck" ng-submit="editForm.$valid && submit(editTitle,editDescription)" novalidate>
+    
+    <label for="title">Edit Deck Name: </label>
+
+    <textarea name="title" ng-required="true" ng-model="editTitle"></textarea>
+
+    <label for="content">Edit Deck Description: </label>
+
+    <textarea name="content" ng-model="editDescription"></textarea>
+
+    <input type="submit" value="Save">
+
+  </form>
+
+  <button ng-click="hideEdit()">Cancel</button>
+
+  </div>
+
 </div>
