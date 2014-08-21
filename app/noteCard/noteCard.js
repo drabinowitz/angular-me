@@ -34,25 +34,9 @@ directivesModule.directive('noteCard',['noteCDataStore',function(noteCDataStore)
 
       }
 
-      scope.editCard = function(deckName,oldCardTitle,newCardTitle,newCardContent){
-
-        noteCDataStore.editCard(deckName,oldCardTitle,newCardTitle,newCardContent);
-
-        scope.showEdit = false;
-
-      }
-
       scope.submit = function(editTitle,editContent){
 
-        if(scope.editForm.$valid){
-
-          scope.editCard(scope.deckName,scope.title,editTitle,editContent);
-
-        } else {
-
-          console.log('form not valid')
-
-        }
+        noteCDataStore.editCard(scope.deckName,scope.title,editTitle,editContent);
 
         scope.showEdit = false;
 

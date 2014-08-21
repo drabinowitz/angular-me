@@ -8,15 +8,15 @@
 
   <button ng-click="showEditForm()">Edit</button>
 
-  <form name="editForm" class="editCard" ng-submit="submit(editTitle,editContent)" ng-if="showEdit" novalidate>
+  <form name="editForm" class="editCard" ng-submit="editForm.$valid && submit(editTitle,editContent)" ng-if="showEdit" novalidate>
     
     <label for="title">Edit Card Name: </label>
 
-    <textarea name="title" ng-required="true">{{ editTitle }}</textarea>
+    <textarea name="title" ng-required="true" ng-model="editTitle"></textarea>
 
     <label for="content">Edit Card Content: </label>
 
-    <textarea name="content" ng-required="true">{{ editContent }}</textarea>
+    <textarea name="content" ng-required="true" ng-model="editContent"></textarea>
 
     <input type="submit" value="Save">
 

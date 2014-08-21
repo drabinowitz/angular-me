@@ -91,8 +91,8 @@ angular.module('noteCLibrary',['firebase']).
 
   }]).
 
-  factory('noteCDataStore',['$q','$interpolate','noteCFirebaseRequest','noteCPromiseGenerator','NOTEC_FIREBASE_DECKS','NOTEC_FIREBASE_NOTECARDS',
-  function($q,$interpolate,noteCFirebaseRequest,noteCPromiseGenerator,NOTEC_FIREBASE_DECKS,NOTEC_FIREBASE_NOTECARDS){
+  factory('noteCDataStore',['$interpolate','noteCFirebaseRequest','noteCPromiseGenerator','NOTEC_FIREBASE_DECKS','NOTEC_FIREBASE_NOTECARDS',
+  function($interpolate,noteCFirebaseRequest,noteCPromiseGenerator,NOTEC_FIREBASE_DECKS,NOTEC_FIREBASE_NOTECARDS){
 
     var decks;
 
@@ -152,21 +152,29 @@ angular.module('noteCLibrary',['firebase']).
 
       addDeck : function(title,description){
 
-        var inputDescription = description || '';
+        if(decks[title] == undefined){
 
-        decks[title] = {description : inputDescription}
+          var inputDescription = description || '';
 
-        return noteCPromiseGenerator.objectStandard(decks,'$save');
+          decks[title] = {description : inputDescription}
+
+          return noteCPromiseGenerator.objectStandard(decks,'$save');
+
+        }
 
       },
 
       addCard : function(deckName,title,content){
 
-        var inputContent = content || '';
+        if(cards[deckName][title] == undefined){
 
-        cards[deckName][title] = {content : inputContent};
+          var inputContent = content || '';
 
-        return noteCPromiseGenerator.objectStandard(cards[deckName],'$save');
+          cards[deckName][title] = {content : inputContent};
+
+          return noteCPromiseGenerator.objectStandard(cards[deckName],'$save');
+
+        }
 
       },
 
@@ -183,6 +191,32 @@ angular.module('noteCLibrary',['firebase']).
         delete cards[deckName][title];
 
         return noteCPromiseGenerator.objectStandard(cards[deckName],'$save');
+
+      },
+
+      editCard : function(deckName,title,editTitle,editContent){
+
+        if(title == editTitle){
+
+          cards[deckName][title].content = editContent;
+
+          return noteCPromiseGenerator.objectStandard(cards[deckName],'$save');
+
+        } else if (cards[deckName][editTitle] == undefined){
+
+          var dataStore = this;
+
+          noteCPromiseGenerator.standard(function(){
+
+            return dataStore.addCard(deckName,editTitle,editContent);
+
+          },function(){
+
+            return dataStore.deleteCard(deckName,title);
+
+          })
+
+        }
 
       }
 
