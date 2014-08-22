@@ -208,6 +208,8 @@ angular.module('noteCLibrary',['firebase']).
 
           decks[editTitle] = decks[title];
 
+          decks[editTitle].description = editDescription;
+
           return dataStore.deleteDeck(title);
 
         }
@@ -227,6 +229,8 @@ angular.module('noteCLibrary',['firebase']).
           var dataStore = this;
 
           cards[deckName][editTitle] = cards[deckName][title];
+
+          cards[deckName][editTitle].content = editContent;
 
           return dataStore.deleteCard(deckName,title);
 
