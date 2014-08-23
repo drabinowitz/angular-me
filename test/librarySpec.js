@@ -53,19 +53,35 @@ describe('noteCLibrary',function(){
 
 	      $provide.value('noteCPromiseGenerator',{
 
-	      	standard : function(ajaxRequest) {
+	      	standard : function(ajaxRequest,filter) {
 
-	      		return ajaxRequest();
+	      		if(filter == undefined){
+
+		      		return ajaxRequest();
+
+		      	} else {
+
+		      		return filter( ajaxRequest() );
+
+		      	}
 	      	
 	      	},
 
-	      	objectStandard : function(requester,ajaxRequest){
+	      	objectStandard : function(requester,ajaxRequest,filter){
 
-	      		return requester;
+	      		if(filter == undefined){
+
+		      		return requester;
+
+		      	} else {
+
+		      		return filter( requester );
+
+		      	}
 
 	      	},
 
-	      	instant : function(data){
+	      	instant : function(data,filter){
 
 	      		return data;
 
@@ -111,18 +127,36 @@ describe('noteCLibrary',function(){
 
 		});
 
-		it('gets the decks and cards and stores them',
+		it('gets the decks and stores them',
 		inject(function(noteCDataStore){
 
 			var decks = noteCDataStore.getDecks();
 
 			expect( decks['test-deck'].description ).toBe('test-deck');
 
+		}));
+
+		it('gets the cards and stores them',
+		inject(function(noteCDataStore){
+
 			var cards = {};
 
 			cards['test-deck'] = noteCDataStore.getCards('test-deck');
 
 			expect( cards['test-deck']['test-card'].content ).toBe('a test-card');
+
+		}));
+
+		it('enables getting an individual card',
+		inject(function(noteCDataStore){
+
+			var cards = {};
+
+			cards['test-deck'] = noteCDataStore.getCards('test-deck');
+
+			var card = noteCDataStore.getCard('test-deck','test-card');
+
+			expect( card.content )
 
 		}));
 

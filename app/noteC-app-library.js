@@ -31,7 +31,7 @@ angular.module('noteCLibrary',['firebase']).
 
   }]).
 
-  factory('noteCPromiseGenerator',['$q',function($q){
+  factory('noteCPromiseGenerator',['$q','$timeout',function($q,$timeout){
 
     function resolve(deferred,result,filter){
 
@@ -55,7 +55,7 @@ angular.module('noteCLibrary',['firebase']).
 
         ajaxRequest().then(function(result){
 
-          resolve.apply(null,[defer,result,filter]);
+          resolve(defer,result,filter);
 
         });
 
@@ -69,7 +69,7 @@ angular.module('noteCLibrary',['firebase']).
 
         requester[ajaxRequest]().then(function(result){
 
-          resolve.apply(null,[defer,result,filter]);
+          resolve(defer,result,filter);
 
         });
 
@@ -77,11 +77,27 @@ angular.module('noteCLibrary',['firebase']).
 
       },
 
-      instant : function(data){
+      instant : function(data,filter){
 
         var defer = $q.defer();
 
-        defer.resolve(data);
+        if(filter == undefined){
+
+          $timeout(function(){
+
+            defer.resolve(data);
+
+          });
+
+        } else {
+
+          $timeout(function(){
+
+            defer.resolve(filter(data));
+
+          });
+
+        }
 
         return defer.promise;
 
@@ -144,7 +160,21 @@ angular.module('noteCLibrary',['firebase']).
 
         return noteCPromiseGenerator.standard(function(){
 
-          return queryForCards.apply(null,[deckName]);
+          return queryForCards(deckName);
+
+        });
+
+      },
+
+      getCard : function(deckName,cardTitle){
+
+        return noteCPromiseGenerator.standard(function(){
+
+          return queryForCards(deckName);
+
+        },function(cards){
+
+          return cards[cardTitle];
 
         });
 
