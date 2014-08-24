@@ -8,25 +8,33 @@ describe('noteCDirectives', function(){
 
 	beforeEach(module('noteCApp'));
 
-	ddescribe('noteCard',function(){
+	beforeEach(function(){
 
-		beforeEach(function(){
+		module(function($provide) {
 
-			module(function($provide) {
+			$provide.value('noteCDataStore',{
 
-				$provide.value('noteCDataStore',{
+				getCard : function(deckName,cardTitle){
 
-					getCard : function(deckName,cardTitle){
+					return {
 
-						return { content : 'test-content' };
+						then : function(callback){
 
-					}
+							callback({ content : 'test-content' });
 
-				});
+						}
+
+					};
+
+				}
 
 			});
 
 		});
+
+	});
+
+	describe('noteCard',function(){
 
 		beforeEach(module('noteCard/noteCard.html'));
 
@@ -64,7 +72,7 @@ describe('noteCDirectives', function(){
 
 			html="";
 
-			html += "<note-deck note-deck-title='title1'></note-deck>";
+			html += "<note-deck note-deck-title='test-title' note-deck-description='test-description'>test-description</note-deck>";
 
 			scope = $rootScope.$new();
 
@@ -78,7 +86,9 @@ describe('noteCDirectives', function(){
 
 		it('should correctly attach the directive controller', function() {
 
-			expect( element.find('h3').text() ).toContain('title1');
+			expect( element.find('div').text() ).toContain('test-title');
+
+			expect( element.find('div').text() ).toContain('test-description');
 
 		});
 

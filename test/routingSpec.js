@@ -35,7 +35,11 @@ describe('noteC-app-views',function(){
 
           return {
 
-            'title1' : 'text1'
+            then : function(callback){
+
+              return callback({'title1' : 'text1'});
+
+            }
 
           };
 
@@ -84,11 +88,15 @@ describe('/noteCards route', function(){
 
       noteCDataStore = {
 
-        getCards : function(deckName){
+        getCards : function(){
 
           return {
 
-            'title1' : 'text1'
+            then : function(callback){
+
+              return callback({'title1' : 'text1'});
+
+            }
 
           };
 
