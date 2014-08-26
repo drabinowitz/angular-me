@@ -12,7 +12,7 @@ angular.module('noteCApp',['ngRoute','ngAnimate','noteCAppViews']).
 
   }]).
 
-  controller('tabCtrl',['$scope',function($scope){
+  controller('tabCtrl',['$scope','$location',function($scope,$location){
 
     $scope.tabs = [
 
@@ -25,5 +25,11 @@ angular.module('noteCApp',['ngRoute','ngAnimate','noteCAppViews']).
       link : '#!/noteDecks'},
 
     ];
+
+    $scope.isCurrentTab = function(tab){
+
+      return $location.$$path.match(/[A-Za-z]+/)[0].toLowerCase() == tab.toLowerCase();
+
+    }
 
   }]);

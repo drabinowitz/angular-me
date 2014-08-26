@@ -1,0 +1,23 @@
+html {
+font-size: 10px;
+-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+height: 100%;
+width: 100%;
+background-color: rgb(243, 243, 243);
+}
+
+a.tabs {
+margin: 3px 15px 0px 2px;
+border: 1px solid rgba(204, 204, 204, 0.42);
+border-bottom: none;
+padding: 7px 12px 8px;
+position: relative;
+top: 3px;
+}
+
+a.tabs.selected {
+background-color: rgba(224, 224, 224, 0.19);
+-moz-box-shadow: 0 0 2px rgba(124, 137, 206, 0.91);
+-webkit-box-shadow: 0 0 2px rgba(124, 137, 206, 0.91);
+box-shadow: 0 0 2px rgba(124, 137, 206, 0.91);
+}
