@@ -16,7 +16,7 @@
 
     <button class="showEdit btn btn-xs btn-warning" ng-show="!showEdit && !showDelete" ng-click="showEditForm()">Edit</button>
 
-    <div ng-if="showEdit">
+    <div ng-show="showEdit">
 
       <form name="editForm" class="editDeck" ng-submit="editForm.$valid && submit(editTitle,editDescription)" novalidate>
         
@@ -28,9 +28,9 @@
 
         <textarea name="content" cols="35" ng-model="editDescription"></textarea>
 
-        <input type="submit" value="Save">
+        <input class="choose btn btn-xs btn-warning" type="submit" value="Save">
 
-        <button type="button" class="cancel" ng-click="hideEdit()">Cancel</button>
+        <button class="choose btn btn-xs btn-default" type="button" class="cancel" ng-click="showEdit = false">Cancel</button>
 
       </form>
 
@@ -43,9 +43,9 @@
 
       <p>Are you sure you want to delete this deck?  This action cannot be reversed</p>
 
-      <button ng-click="deleteDeck(title)">Delete</button>
+      <button class="choose btn btn-xs btn-danger" ng-click="deleteDeck(title)">Delete</button>
 
-      <button ng-click="showDelete = false">Cancel</button>
+      <button class="choose btn btn-xs btn-default" ng-click="showDelete = false">Cancel</button>
 
     </div>
 

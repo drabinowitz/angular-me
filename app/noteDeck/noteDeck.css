@@ -39,3 +39,15 @@ div.noteDeck textarea[name=title] {
   resize: none;
 
 }
+
+div.noteDeck .choose {
+
+  float: right;
+
+}
+
+div.noteDeck button.choose {
+
+  margin-right: 4px;
+
+}
