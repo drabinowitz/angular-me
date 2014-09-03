@@ -28,7 +28,17 @@ angular.module('noteCApp',['ngRoute','ngAnimate','noteCAppViews']).
 
     $scope.isCurrentTab = function(tab){
 
-      return $location.$$path.match(/[A-Za-z]+/)[0].toLowerCase() == tab.toLowerCase();
+      var currentTab = $location.$$path.match(/[A-Za-z]+/);
+
+      if (currentTab){
+
+        return currentTab[0].toLowerCase() == tab.toLowerCase();
+        
+      } else {
+
+        return false;
+
+      }
 
     }
 
