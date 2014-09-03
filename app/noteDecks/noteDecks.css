@@ -1,3 +1,41 @@
 div.filter {
-display: inline;
+  
+  display: inline-block;
+ 
+  float: left;
+
+}
+
+input.filterInput {
+
+  height: 28px;
+  
+  float: left;
+
+}
+
+button.addDeckButton {
+
+  border: none;
+
+  margin-left: 21px;
+
+  float: left;
+
+}
+
+div.notes {
+
+  clear: both;
+
+  padding-top: 5px;
+
+}
+
+note-deck.noteDeckWrapper {
+
+  display: block;
+
+  margin-top: 10px;
+
 }
