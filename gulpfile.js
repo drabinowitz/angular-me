@@ -1,4 +1,4 @@
-l// Include gulp
+// Include gulp
 var gulp = require('gulp'); 
 var connect = require('gulp-connect');
 var uglify = require('gulp-uglify');
@@ -68,6 +68,12 @@ gulp.task('usemin', function() {
 gulp.task('connect', function() {
   connect.server({
     root: 'app/'
+  });
+});
+
+gulp.task('production', function() {
+  connect.server({
+    root: 'build/'
   });
 });
 
