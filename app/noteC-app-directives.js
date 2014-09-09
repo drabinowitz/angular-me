@@ -1,1 +1,1 @@
-var directivesModule = angular.module('noteCDirectives',[]);
+var directivesModule = angular.module('noteCDirectives',['noteCAppViews']);
