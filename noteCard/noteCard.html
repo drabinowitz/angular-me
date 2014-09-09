@@ -1,0 +1,33 @@
+<div>
+  
+  <h3>{{ title }}</h3>
+
+  <p>{{ card.content }}</p>
+
+  <div ng-transclude></div>
+
+  <button ng-click="deleteCard(deckName,title)">Delete</button>
+
+  <button ng-click="showEditForm()">Edit</button>
+
+  <div ng-if="showEdit">
+
+  <form name="editForm" class="editCard" ng-submit="editForm.$valid && submit(editTitle,editContent)" novalidate>
+    
+    <label for="title">Edit Card Name: </label>
+
+    <textarea name="title" ng-required="true" ng-model="editTitle"></textarea>
+
+    <label for="content">Edit Card Content: </label>
+
+    <textarea name="content" ng-model="editContent"></textarea>
+
+    <input type="submit" value="Save">
+
+  </form>
+
+  <button ng-click="hideEdit()">Cancel</button>
+
+  </div>
+
+</div>

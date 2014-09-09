@@ -1,0 +1,29 @@
+<div class = "filter">
+  
+  <input class="filterInput" placeholder="Filter Decks" ng-model="deckFilter" />
+
+</div>
+
+<button class="addDeckButton btn-sm btn-success" ng-click="showAddDeck = true">Add Deck</button>
+
+<form name="addDeckForm" class="addDeckForm" ng-show="showAddDeck" ng-submit="ctrl.addNoteDeck(addDeckTitle,addDeckDescription)" novalidate>
+  
+  <input type="text" placeholder="Deck Name" ng-required="true" ng-model="addDeckTitle">
+
+  <input type="textarea" placeholder="Deck description (optional)" ng-model="addDeckDescription">
+
+  <input type="submit"> 
+
+  <p ng-show="addDeckInvalid">Please Provide a Valid Deck Name</p>
+
+</form>
+
+<div class="notes">
+
+  <note-deck class="noteDeckWrapper" ng-repeat="(deckName,deckProperties) in noteDecks | with:deckFilter" note-deck-title="{{ deckName }}" note-deck-description="{{ deckProperties.description }}">
+
+  {{ deckProperties.description }}
+
+  </note-deck>
+
+</div>

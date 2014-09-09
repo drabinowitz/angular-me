@@ -1,0 +1,61 @@
+<div class="noteDeck">
+
+  <div class="noteDeckInfo noteDeckSlide" ng-show="!showEdit && !showDelete">
+  
+    <a ng-href="#!/noteDecks/{{ title }}/noteCards">
+
+      <h3 class="noteDeckTitle">{{ title }}</h3>
+
+    </a>
+
+    <div class="noteDeckDescription" ng-transclude></div>
+
+    <div class="noteDeckButtons">
+
+      <button class="showEdit btn btn-xs btn-warning" ng-show="!showEdit && !showDelete" ng-click="showEditForm()">Edit</button>
+
+      <button class="showDelete btn btn-xs btn-danger" ng-show="!showEdit && !showDelete" ng-click="showDelete = true">Delete</button>
+
+    </div>
+
+  </div>
+
+    <div class="editDeck noteDeckSlide" ng-show="showEdit">
+
+      <form name="editForm" class="editDeckForm" ng-submit="editForm.$valid && submit(editTitle,editDescription)" novalidate>
+        
+        <label for="title">Edit Deck Name: </label>
+
+        <textarea name="title" rows="1" cols="35" ng-required="true" ng-model="editTitle"></textarea>
+
+        <label for="content">Edit Deck Description: </label>
+
+        <textarea name="content" cols="35" ng-model="editDescription"></textarea>
+
+        <div class="noteDeckButtons">
+
+          <button class="choose btn btn-xs btn-default" type="button" class="cancel" ng-click="showEdit = false">Cancel</button>
+
+          <input class="choose btn btn-xs btn-warning" type="submit" value="Save">
+
+        </div>
+
+      </form>
+
+    </div>
+
+    <div class="deleteDeck noteDeckSlide" ng-show="showDelete">
+
+      <p>Are you sure you want to delete this deck?  This action cannot be reversed</p>
+
+      <div class="noteDeckButtons">
+
+        <button class="choose btn btn-xs btn-default" ng-click="showDelete = false">Cancel</button>
+
+        <button class="choose btn btn-xs btn-danger" ng-click="deleteDeck(title)">Delete</button>
+
+      </div>
+
+    </div>
+
+</div>
