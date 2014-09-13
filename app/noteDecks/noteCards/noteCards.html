@@ -5,12 +5,14 @@
 </div>
 
 <form name="addCardForm" class="addCardForm" ng-submit="ctrl.addNoteCard(addCardTitle,addCardContent)" novalidate>
+
+  <h4 class="addCardTitle">Add New Card to Deck</h4>
   
-  <input type="text" placeholder="Card Name" ng-required="true" ng-model="addCardTitle">
+  <input class="addCardSetting" type="text" placeholder="Card Name" ng-required="true" ng-model="addCardTitle">
 
-  <input type="textarea" placeholder="Card Content" ng-model="addCardContent">
+  <textarea class="addCardSetting" cols="35" placeholder="Card Content" ng-model="addCardContent"></textarea>
 
-  <input type="submit"> 
+  <input class="btn btn-lg btn-success" type="submit"> 
 
   <p ng-show="addCardInvalid">Please Provide Valid Card Name and Content</p>
 
