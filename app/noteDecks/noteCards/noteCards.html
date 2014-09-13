@@ -1,6 +1,6 @@
 <div class = "filter">
   
-  <input placeholder="Filter Cards" ng-model="cardFilter" />
+  <input class="filterInput" placeholder="Filter Cards" ng-model="cardFilter" />
 
 </div>
 
@@ -18,7 +18,7 @@
 
 <div class="cards">
 
-  <note-card ng-repeat="(cardName,cardProperties) in noteCards | with:cardFilter" note-card-deck="{{ deckName }}" note-card-title="{{ cardName }}">
+  <note-card class="noteCardWrapper" ng-repeat="(cardName,cardProperties) in noteCards | with:cardFilter" note-card-deck="{{ deckName }}" note-card-title="{{ cardName }}">
     
   </note-card>
 
