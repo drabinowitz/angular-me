@@ -26,7 +26,7 @@ directivesModule.directive('noteCard',['noteCDataStore',function(noteCDataStore)
 
         noteCDataStore.deleteCard(deckName,cardTitle);
 
-      }
+      };
 
       scope.showEditForm = function(){
 
@@ -36,7 +36,7 @@ directivesModule.directive('noteCard',['noteCDataStore',function(noteCDataStore)
 
         scope.editContent = scope.card.content;
 
-      }
+      };
 
       scope.submit = function(editTitle,editContent){
 
@@ -44,13 +44,13 @@ directivesModule.directive('noteCard',['noteCDataStore',function(noteCDataStore)
 
         scope.showEdit = false;
 
-      }
+      };
 
-      scope.hideEdit = function(){
+/*      scope.hideEdit = function(){
 
         scope.showEdit = false;
 
-      }
+      }*/
 
     }
 
