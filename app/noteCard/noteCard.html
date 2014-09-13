@@ -1,32 +1,44 @@
-<div>
+<div class="noteCard">
   
-  <h3>{{ title }}</h3>
+  <div class="noteCardInfo noteCardSlide" ng-show="!showEdit && !showDelete">
 
-  <p>{{ card.content }}</p>
+    <h3 class="noteCardTitle">{{ title }}</h3>
 
-  <div ng-transclude></div>
+    <p class="noteCardContent">{{ card.content }}</p>
 
-  <button ng-click="deleteCard(deckName,title)">Delete</button>
+    <div class="noteCardTransclude" ng-transclude></div>
 
-  <button ng-click="showEditForm()">Edit</button>
+    <div class="noteCardButtons">
 
-  <div ng-if="showEdit">
+      <button class="showEdit btn btn-xs btn-warning" ng-click="showEditForm()">Edit</button>
 
-  <form name="editForm" class="editCard" ng-submit="editForm.$valid && submit(editTitle,editContent)" novalidate>
+      <button class="showDelete btn btn-xs btn-danger" ng-click="deleteCard(deckName,title)">Delete</button>
+
+    </div>
+
+  </div>
+
+  <div class="editCard noteCardSlide" ng-show="showEdit">
+
+    <form name="editForm" class="editCard" ng-submit="editForm.$valid && submit(editTitle,editContent)" novalidate>
+      
+      <label for="title">Edit Card Name: </label>
+
+      <textarea name="title" rows="1" cols="35" ng-required="true" ng-model="editTitle"></textarea>
+
+      <label for="content">Edit Card Content: </label>
+
+      <textarea name="content" cols="35" ng-model="editContent"></textarea>
+
+      <div class="noteClassButtons">
+
+          <button class="choose btn btn-xs btn-default" ng-click="showEdit = false">Cancel</button>
+
+          <input class="choose btn btn-xs btn-warning" type="submit" value="Save">
     
-    <label for="title">Edit Card Name: </label>
+      </div>
 
-    <textarea name="title" ng-required="true" ng-model="editTitle"></textarea>
-
-    <label for="content">Edit Card Content: </label>
-
-    <textarea name="content" ng-model="editContent"></textarea>
-
-    <input type="submit" value="Save">
-
-  </form>
-
-  <button ng-click="hideEdit()">Cancel</button>
+    </form>
 
   </div>
 

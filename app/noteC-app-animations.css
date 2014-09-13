@@ -1,9 +1,11 @@
-div.noteDeck .noteDeckSlide.ng-hide-add {
+div.noteDeck .noteDeckSlide.ng-hide-add,
+div.noteCard .noteCardSlide.ng-hide-add {
     -webkit-animation: 2.0s flip-hide;
     animation: 2.0s flip-hide;
 }
 
-div.noteDeck .noteDeckSlide.ng-hide-remove {
+div.noteDeck .noteDeckSlide.ng-hide-remove,
+div.noteCard .noteCardSlide.ng-hide-remove {
     -webkit-animation: 2.0s flip-show;
     animation: 2.0s flip-show;
 }
