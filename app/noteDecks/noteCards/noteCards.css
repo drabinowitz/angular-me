@@ -1,0 +1,15 @@
+div.cards {
+
+  clear: both;
+
+  padding-top: 5px;
+
+}
+
+note-card.noteCardWrapper {
+
+  display: block;
+
+  margin-top: 10px;
+
+}
