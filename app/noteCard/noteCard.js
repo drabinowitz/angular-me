@@ -16,7 +16,7 @@ directivesModule.directive('noteCard',['noteCDataStore',function(noteCDataStore)
 
       scope.deckName = attrs.noteCardDeck;
 
-      noteCDataStore.getCard(scope.deckName,scope.title).then(function(card){
+      noteCDataStore.getCards(scope.deckName,scope.title).then(function(card){
 
         scope.card = card;
 

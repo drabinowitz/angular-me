@@ -14,7 +14,13 @@ directivesModule.directive('noteDeck',['noteCDataStore',function(noteCDataStore)
 
       scope.title = attrs.noteDeckTitle;
 
-      scope.deckDescription = attrs.noteDeckDescription;
+      noteCDataStore.getDecks( attrs.noteDeckTitle ).then(function(deck){
+
+        scope.deck = deck;
+
+      });
+
+      // scope.deckDescription = attrs.noteDeckDescription;
 
       scope.showDelete = false;
 
