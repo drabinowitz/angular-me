@@ -12,21 +12,20 @@ form.addCardForm {
 
   background: #eee;
 
-  height: 215px;
+  padding: 0 0 13px 10px;
 
 }
+
 
 @media (min-width: 768px) {
 
   form.addCardForm {
 
-    right: 0;
+    right: 0;    
 
     width: 300px;
 
     left: auto;
-
-    bottom: auto;
 
     z-index: auto;
 
@@ -38,7 +37,7 @@ form.addCardForm {
 
   form.addCardForm {
 
-    right: 23%;
+    bottom: auto;
 
   }
 
@@ -50,17 +49,29 @@ h4.addCardTitle{
 
 }
 
+form.addCardForm label {
+
+  font-family: inherit;
+
+  margin-bottom: 0;
+
+}
+
 .addCardSetting {
-
+  
   display: block;
-
-  margin: 14px;
+  
+  margin: 8px;
+  
+  width: 90%;
 
 }
 
 input.btn.btn-lg.btn-success {
 
   float: right;
+
+  margin-top: 4px;
 
   margin-right: 17px;
 

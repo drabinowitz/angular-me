@@ -7,10 +7,14 @@
 <form name="addCardForm" class="addCardForm" ng-submit="ctrl.addNoteCard(addCardTitle,addCardContent)" novalidate>
 
   <h4 class="addCardTitle">Add New Card to Deck</h4>
-  
-  <input class="addCardSetting" type="text" placeholder="Card Name" ng-required="true" ng-model="addCardTitle">
 
-  <textarea class="addCardSetting" cols="35" placeholder="Card Content" ng-model="addCardContent"></textarea>
+  <label for="title">Card Name:</label>
+  
+  <input class="addCardSetting" name="title" type="text" ng-required="true" ng-model="addCardTitle">
+
+  <label for="content">Card Content:</label>
+
+  <textarea class="addCardSetting" name="content" cols="35" ng-model="addCardContent"></textarea>
 
   <input class="btn btn-lg btn-success" type="submit"> 
 
