@@ -2,37 +2,43 @@ form.addCardForm {
 
   position: fixed;
 
-  right: 23%;
+  left: 0;
+
+  width: 100%;
+
+  bottom: 0;
+
+  z-index: 10;
 
   background: #eee;
 
   height: 215px;
 
-  width: 300px;
-
 }
 
-@media (max-width: 1224px) and (min-width: 768px) {
+@media (min-width: 768px) {
 
   form.addCardForm {
 
     right: 0;
 
+    width: 300px;
+
+    left: auto;
+
+    bottom: auto;
+
+    z-index: auto;
+
   }
 
 }
 
-@media (max-width: 767px) {
+@media (min-width: 1224px) {
 
   form.addCardForm {
 
-    left: 0;
-
-    width: 100%;
-
-    bottom: 0;
-
-    z-index: 10;
+    right: 23%;
 
   }
 
