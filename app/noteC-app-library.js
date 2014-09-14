@@ -150,45 +150,149 @@ angular.module('noteCLibrary',['firebase']).
 
     return {
 
-      getDecks : function(deckName){
+      decks : {
 
-        var decksToReturn = function(decks){ return decks };
+        get : function(deckName){
 
-        if(deckName){
+          var decksToReturn = function(decks){ return decks };
 
-          decksToReturn = function(decks){
+          if(deckName){
 
-            return decks[deckName];
+            decksToReturn = function(decks){
 
-          };
+              return decks[deckName];
+
+            };
+
+          }
+
+          return noteCPromiseGenerator.standard(queryForDecks,decksToReturn);
+
+        },
+
+        add : function(title,description){
+
+          if(decks[title] == undefined){
+
+            var inputDescription = description || '';
+
+            decks[title] = {description : inputDescription}
+
+            return noteCPromiseGenerator.objectStandard(decks,'$save');
+
+          }
+
+        },
+
+        edit : function(title,editTitle,editDescription){
+
+          if(title == editTitle){
+
+            decks[title].description = editDescription;
+
+            return noteCPromiseGenerator.objectStandard(decks,'$save');
+
+          } else if (decks[editTitle] == undefined){
+
+            var dataStore = this;
+
+            decks[editTitle] = decks[title];
+
+            decks[editTitle].description = editDescription;
+
+            return this.remove(title);
+
+          }
+
+        },
+
+        remove : function(title){
+
+          for (var i = 0; i < arguments.length; i++){
+
+            delete decks[arguments[i]];
+
+          }
+
+          return noteCPromiseGenerator.objectStandard(decks,'$save');
 
         }
-
-        return noteCPromiseGenerator.standard(queryForDecks,decksToReturn);
 
       },
 
-      getCards : function(deckName,cardTitle){
+      cards : {
 
-        var cardsToReturn = function (cards){ return cards };
+        get : function(deckName,cardTitle){
 
-        if(cardTitle){
+          var cardsToReturn = function (cards){ return cards };
 
-          cardsToReturn = function(cards){
+          if(cardTitle){
 
-            return cards[cardTitle];
+            cardsToReturn = function(cards){
 
-          };
+              return cards[cardTitle];
+
+            };
+
+          }
+
+          return noteCPromiseGenerator.standard(function(){
+
+            return queryForCards(deckName);
+
+          },cardsToReturn);
+
+        },
+
+        add : function(deckName,title,content){
+
+          if(cards[deckName][title] == undefined){
+
+            var inputContent = content || '';
+
+            cards[deckName][title] = {content : inputContent};
+
+            return noteCPromiseGenerator.objectStandard(cards[deckName],'$save');
+
+          }
+
+        },
+
+        edit : function(deckName,title,editTitle,editContent){
+
+          if(title == editTitle){
+
+            cards[deckName][title].content = editContent;
+
+            return noteCPromiseGenerator.objectStandard(cards[deckName],'$save');
+
+          } else if (cards[deckName][editTitle] == undefined){
+
+            var dataStore = this;
+
+            cards[deckName][editTitle] = cards[deckName][title];
+
+            cards[deckName][editTitle].content = editContent;
+
+            return this.remove(deckName,title);
+
+          }
+
+        },
+
+        remove : function(deckName,title){
+
+          for(var i = 1; i < arguments.length; i++){
+
+            delete cards[deckName][arguments[i]];
+
+          }
+              
+          return noteCPromiseGenerator.objectStandard(cards[deckName],'$save');
 
         }
-
-        return noteCPromiseGenerator.standard(function(){
-
-          return queryForCards(deckName);
-
-        },cardsToReturn);
         
-      },
+      }
 
 /*      getCard : function(deckName,cardTitle){
 
@@ -204,93 +308,7 @@ angular.module('noteCLibrary',['firebase']).
 
       },*/
 
-      addDeck : function(title,description){
-
-        if(decks[title] == undefined){
-
-          var inputDescription = description || '';
-
-          decks[title] = {description : inputDescription}
-
-          return noteCPromiseGenerator.objectStandard(decks,'$save');
-
-        }
-
-      },
-
-      addCard : function(deckName,title,content){
-
-        if(cards[deckName][title] == undefined){
-
-          var inputContent = content || '';
-
-          cards[deckName][title] = {content : inputContent};
-
-          return noteCPromiseGenerator.objectStandard(cards[deckName],'$save');
-
-        }
-
-      },
-
-      deleteDeck : function(title){
-
-        delete decks[title];
-
-        return noteCPromiseGenerator.objectStandard(decks,'$save');
-
-      },
-
-      deleteCard : function(deckName,title){
-
-        delete cards[deckName][title];
-
-        return noteCPromiseGenerator.objectStandard(cards[deckName],'$save');
-
-      },
-
-      editDeck : function(title,editTitle,editDescription){
-
-        if(title == editTitle){
-
-          decks[title].description = editDescription;
-
-          return noteCPromiseGenerator.objectStandard(decks,'$save');
-
-        } else if (decks[editTitle] == undefined){
-
-          var dataStore = this;
-
-          decks[editTitle] = decks[title];
-
-          decks[editTitle].description = editDescription;
-
-          return dataStore.deleteDeck(title);
-
-        }
-
-      },
-
-      editCard : function(deckName,title,editTitle,editContent){
-
-        if(title == editTitle){
-
-          cards[deckName][title].content = editContent;
-
-          return noteCPromiseGenerator.objectStandard(cards[deckName],'$save');
-
-        } else if (cards[deckName][editTitle] == undefined){
-
-          var dataStore = this;
-
-          cards[deckName][editTitle] = cards[deckName][title];
-
-          cards[deckName][editTitle].content = editContent;
-
-          return dataStore.deleteCard(deckName,title);
-
-        }
-
-      }
+      
 
     };
 

@@ -16,7 +16,7 @@ controller('noteCardsCtrl',['$scope','$route','noteCDataStore',function($scope,$
 
   $scope.addCardInvalid = false;
 
-  noteCDataStore.getCards($scope.deckName).then(function(result){
+  noteCDataStore.cards.get($scope.deckName).then(function(result){
 
     $scope.noteCards = result;
 
@@ -28,7 +28,7 @@ controller('noteCardsCtrl',['$scope','$route','noteCDataStore',function($scope,$
 
       $scope.addCardInvalid = false;
     
-      noteCDataStore.addCard($scope.deckName,title,content);
+      noteCDataStore.cards.add($scope.deckName,title,content);
 
     } else {
 

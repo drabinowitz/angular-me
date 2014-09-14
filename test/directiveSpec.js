@@ -14,31 +14,39 @@ describe('noteCDirectives', function(){
 
 			$provide.value('noteCDataStore',{
 
-				getCards : function(deckName,cardTitle){
+				cards : { 
 
-					return {
+					get : function(deckName,cardTitle){
 
-						then : function(callback){
+						return {
 
-							callback({ content : 'test-content' });
+							then : function(callback){
 
-						}
+								callback({ content : 'test-content' });
 
-					};
+							}
+
+						};
+
+					}
 
 				},
 
-				getDecks : function(deckName){
+				decks : {
 
-					return {
+					get : function(deckName){
 
-						then : function(callback){
+						return {
 
-							callback({ description : 'test-description' });
+							then : function(callback){
 
-						}
+								callback({ description : 'test-description' });
 
-					};
+							}
+
+						};
+
+					}
 
 				}
 

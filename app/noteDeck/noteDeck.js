@@ -14,7 +14,7 @@ directivesModule.directive('noteDeck',['noteCDataStore',function(noteCDataStore)
 
       scope.title = attrs.noteDeckTitle;
 
-      noteCDataStore.getDecks( attrs.noteDeckTitle ).then(function(deck){
+      noteCDataStore.decks.get( attrs.noteDeckTitle ).then(function(deck){
 
         scope.deck = deck;
 
@@ -26,7 +26,7 @@ directivesModule.directive('noteDeck',['noteCDataStore',function(noteCDataStore)
 
       scope.deleteDeck = function(title){
 
-        noteCDataStore.deleteDeck(title);
+        noteCDataStore.decks.remove(title);
 
         scope.showDelete = false;
 
@@ -44,7 +44,7 @@ directivesModule.directive('noteDeck',['noteCDataStore',function(noteCDataStore)
 
       scope.submit = function(editTitle,editDescription){
 
-        noteCDataStore.editDeck(scope.title,editTitle,editDescription);
+        noteCDataStore.decks.edit(scope.title,editTitle,editDescription);
 
         scope.showEdit = false;
 

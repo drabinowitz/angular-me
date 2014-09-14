@@ -130,7 +130,7 @@ describe('noteCLibrary',function(){
 		it('gets the decks and stores them',
 		inject(function(noteCDataStore){
 
-			var decks = noteCDataStore.getDecks();
+			var decks = noteCDataStore.decks.get();
 
 			expect( decks['test-deck'].description ).toBe('test-deck');
 
@@ -141,7 +141,7 @@ describe('noteCLibrary',function(){
 
 			var cards = {};
 
-			cards['test-deck'] = noteCDataStore.getCards('test-deck');
+			cards['test-deck'] = noteCDataStore.cards.get('test-deck');
 
 			expect( cards['test-deck']['test-card'].content ).toBe('a test-card');
 
@@ -152,9 +152,9 @@ describe('noteCLibrary',function(){
 
 			var cards = {};
 
-			cards['test-deck'] = noteCDataStore.getCards('test-deck');
+			cards['test-deck'] = noteCDataStore.cards.get('test-deck');
 
-			var card = noteCDataStore.getCards('test-deck','test-card');
+			var card = noteCDataStore.cards.get('test-deck','test-card');
 
 			expect( card.content )
 
@@ -163,9 +163,9 @@ describe('noteCLibrary',function(){
 		it('enables adding decks',
 		inject(function(noteCDataStore){
 
-			var decks = noteCDataStore.getDecks();
+			var decks = noteCDataStore.decks.get();
 
-			noteCDataStore.addDeck('add-deck','add-description');
+			noteCDataStore.decks.add('add-deck','add-description');
 
 			expect( decks['add-deck'].description ).toBe('add-description');
 
@@ -176,9 +176,9 @@ describe('noteCLibrary',function(){
 
 			var cards = {};
 
-			cards['test-deck'] = noteCDataStore.getCards('test-deck');
+			cards['test-deck'] = noteCDataStore.cards.get('test-deck');
 
-			noteCDataStore.addCard('test-deck','add-card','added-card')
+			noteCDataStore.cards.add('test-deck','add-card','added-card')
 
 			expect( cards['test-deck']['add-card'].content ).toBe('added-card');
 
@@ -187,9 +187,9 @@ describe('noteCLibrary',function(){
 		it('enables deleting decks',
 		inject(function(noteCDataStore){
 
-			var decks = noteCDataStore.getDecks();
+			var decks = noteCDataStore.decks.get();
 
-			noteCDataStore.deleteDeck('test-deck');
+			noteCDataStore.decks.remove('test-deck');
 
 			expect( decks['test-deck'] ).not.toBeDefined();
 
@@ -200,9 +200,9 @@ describe('noteCLibrary',function(){
 
 			var cards = {};
 
-			cards['test-deck'] = noteCDataStore.getCards('test-deck');
+			cards['test-deck'] = noteCDataStore.cards.get('test-deck');
 
-			noteCDataStore.deleteCard('test-deck','test-card');
+			noteCDataStore.cards.remove('test-deck','test-card');
 
 			expect( cards['test-deck']['test-card'] ).not.toBeDefined();
 
@@ -211,9 +211,9 @@ describe('noteCLibrary',function(){
 		it('enables editing decks',
 		inject(function(noteCDataStore){
 
-			var decks = noteCDataStore.getDecks();
+			var decks = noteCDataStore.decks.get();
 
-			noteCDataStore.editDeck('test-deck','edit-deck','edit-description');
+			noteCDataStore.decks.edit('test-deck','edit-deck','edit-description');
 
 			expect( decks['test-deck'] ).not.toBeDefined();
 
@@ -226,9 +226,9 @@ describe('noteCLibrary',function(){
 
 			var cards = {};
 
-			cards['test-deck'] = noteCDataStore.getCards('test-deck');
+			cards['test-deck'] = noteCDataStore.cards.get('test-deck');
 
-			noteCDataStore.editCard('test-deck','test-card','edit-card','edit-content');
+			noteCDataStore.cards.edit('test-deck','test-card','edit-card','edit-content');
 
 			expect( cards['test-deck']['test-card'] ).not.toBeDefined();
 

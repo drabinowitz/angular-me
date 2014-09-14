@@ -31,19 +31,23 @@ describe('noteC-app-views',function(){
 
     	noteCDataStore = {
 
-        getDecks : function(){
+        decks : {
 
-          return {
+          get : function(){
 
-            then : function(callback){
+            return {
 
-              return callback({'title1' : 'text1'});
+              then : function(callback){
 
-            }
+                return callback({'title1' : 'text1'});
 
-          };
+              }
 
-  	    }
+            };
+
+    	    }
+
+        }
 
       };
 
@@ -88,17 +92,21 @@ describe('/noteCards route', function(){
 
       noteCDataStore = {
 
-        getCards : function(){
+        cards : {
 
-          return {
+          get : function(){
 
-            then : function(callback){
+            return {
 
-              return callback({'title1' : 'text1'});
+              then : function(callback){
 
-            }
+                return callback({'title1' : 'text1'});
 
-          };
+              }
+
+            };
+
+          }
 
         }
 
