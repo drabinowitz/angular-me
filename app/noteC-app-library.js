@@ -150,23 +150,47 @@ angular.module('noteCLibrary',['firebase']).
 
     return {
 
-      getDecks : function(){
+      getDecks : function(deckName){
 
-        return noteCPromiseGenerator.standard(queryForDecks);
+        var decksToReturn = function(decks){ return decks };
+
+        if(deckName){
+
+          decksToReturn = function(decks){
+
+            return decks[deckName];
+
+          };
+
+        }
+
+        return noteCPromiseGenerator.standard(queryForDecks,decksToReturn);
 
       },
 
-      getCards : function(deckName){
+      getCards : function(deckName,cardTitle){
+
+        var cardsToReturn = function (cards){ return cards };
+
+        if(cardTitle){
+
+          cardsToReturn = function(cards){
+
+            return cards[cardTitle];
+
+          };
+
+        }
 
         return noteCPromiseGenerator.standard(function(){
 
           return queryForCards(deckName);
 
-        });
-
+        },cardsToReturn);
+        
       },
 
-      getCard : function(deckName,cardTitle){
+/*      getCard : function(deckName,cardTitle){
 
         return noteCPromiseGenerator.standard(function(){
 
@@ -178,7 +202,7 @@ angular.module('noteCLibrary',['firebase']).
 
         });
 
-      },
+      },*/
 
       addDeck : function(title,description){
 
