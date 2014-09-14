@@ -38,7 +38,7 @@ form.addDeckForm {
 
   display: block;
 
-  width: 500px;
+  width: 80%;
 
   height: 265px;
 
@@ -49,6 +49,16 @@ form.addDeckForm {
   border-radius: 59px;
 
   padding: 36px;
+
+}
+
+@media (min-width: 768px) {
+
+  form.addDeckForm{
+
+    width: 500px;
+
+  }
 
 }
 
