@@ -154,7 +154,7 @@ describe('noteCLibrary',function(){
 
 			cards['test-deck'] = noteCDataStore.getCards('test-deck');
 
-			var card = noteCDataStore.getCard('test-deck','test-card');
+			var card = noteCDataStore.getCards('test-deck','test-card');
 
 			expect( card.content )
 

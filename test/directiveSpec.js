@@ -14,13 +14,27 @@ describe('noteCDirectives', function(){
 
 			$provide.value('noteCDataStore',{
 
-				getCard : function(deckName,cardTitle){
+				getCards : function(deckName,cardTitle){
 
 					return {
 
 						then : function(callback){
 
 							callback({ content : 'test-content' });
+
+						}
+
+					};
+
+				},
+
+				getDecks : function(deckName){
+
+					return {
+
+						then : function(callback){
+
+							callback({ description : 'test-description' });
 
 						}
 
