@@ -83,6 +83,10 @@ div.cards {
 
   padding-top: 5px;
 
+  overflow: auto;
+
+  margin-bottom: 300px;
+
 }
 
 note-card.noteCardWrapper {

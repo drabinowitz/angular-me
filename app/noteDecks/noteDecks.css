@@ -108,6 +108,8 @@ div.notes {
 
   padding-top: 5px;
 
+  overflow: auto;
+
 }
 
 note-deck.noteDeckWrapper {
