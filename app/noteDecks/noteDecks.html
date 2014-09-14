@@ -34,10 +34,18 @@
 
 <div class="notes">
 
-  <note-deck class="noteDeckWrapper" ng-repeat="(deckName,deckProperties) in noteDecks | with:deckFilter" note-deck-title="{{ deckName }}" note-deck-description="{{ deckProperties.description }}">
+  <ol>
 
-  {{ deckProperties.description }}
+    <div class="col-md-4 col-sm-6" ng-repeat="(deckName,deckProperties) in noteDecks | with:deckFilter">
 
-  </note-deck>
+      <note-deck class="noteDeckWrapper" note-deck-title="{{ deckName }}" note-deck-description="{{ deckProperties.description }}">
+
+      {{ deckProperties.description }}
+
+      </note-deck>
+
+    </div>
+
+  </ol>
 
 </div>
