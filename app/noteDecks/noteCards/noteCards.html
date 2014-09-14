@@ -24,8 +24,12 @@
 
 <div class="cards">
 
-  <note-card class="noteCardWrapper" ng-repeat="(cardName,cardProperties) in noteCards | with:cardFilter" note-card-deck="{{ deckName }}" note-card-title="{{ cardName }}">
-    
-  </note-card>
+  <div class="col-md-4 col-sm-6" ng-repeat="(cardName,cardProperties) in noteCards | with:cardFilter">
+
+    <note-card class="noteCardWrapper" note-card-deck="{{ deckName }}" note-card-title="{{ cardName }}">
+      
+    </note-card>
+
+  </div>
 
 </div>

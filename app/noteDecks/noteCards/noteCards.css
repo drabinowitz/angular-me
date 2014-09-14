@@ -27,8 +27,6 @@ form.addCardForm {
 
     left: auto;
 
-    z-index: auto;
-
   }
 
 }
@@ -38,6 +36,8 @@ form.addCardForm {
   form.addCardForm {
 
     bottom: auto;
+
+    z-index: auto;
 
   }
 
