@@ -14,6 +14,74 @@ input.filterInput {
 
 }
 
+div.addDeckOverlay {
+  
+  z-index: 100;
+  
+  position: fixed;
+  
+  left: 0;
+  
+  right: 0;
+  
+  top: 0;
+  
+  bottom: 0;
+  
+  background-color: rgba(0,0,0,0.3);
+
+}
+
+form.addDeckForm {
+
+  margin: 5% auto;
+
+  display: block;
+
+  width: 500px;
+
+  height: 265px;
+
+  background-color: white;
+
+  border: 1px solid black;
+
+  border-radius: 59px;
+
+  padding: 36px;
+
+}
+
+div.addDeckButtons {
+
+  float: right;
+
+  margin-right: 5px;
+
+  margin-top: 15px;
+
+}
+
+input.addDeckTitle {
+
+  display: block;
+
+  width: 100%;
+
+}
+
+textarea.addDeckDescription {
+
+  width: 100%;
+
+}
+
+input.addDeckSubmit {
+
+  margin-left: 15px;
+
+}
+
 button.addDeckButton {
 
   border: none;

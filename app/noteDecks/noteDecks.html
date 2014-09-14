@@ -6,17 +6,31 @@
 
 <button class="addDeckButton btn-sm btn-success" ng-click="showAddDeck = true">Add Deck</button>
 
-<form name="addDeckForm" class="addDeckForm" ng-show="showAddDeck" ng-submit="ctrl.addNoteDeck(addDeckTitle,addDeckDescription)" novalidate>
-  
-  <input type="text" placeholder="Deck Name" ng-required="true" ng-model="addDeckTitle">
+<div class="addDeckOverlay" ng-show="showAddDeck">
 
-  <input type="textarea" placeholder="Deck description (optional)" ng-model="addDeckDescription">
+  <form name="addDeckForm" class="addDeckForm" ng-submit="ctrl.addNoteDeck(addDeckTitle,addDeckDescription)" novalidate>
+    
+    <label for="title">New Deck Name:</label>
 
-  <input type="submit"> 
+    <input class="addDeckTitle" name="title" type="text" ng-required="true" ng-model="addDeckTitle">
 
-  <p ng-show="addDeckInvalid">Please Provide a Valid Deck Name</p>
+    <label for="description">New Deck Description (optional):</label>
 
-</form>
+    <textarea class="addDeckDescription" name="description" cols="60" ng-model="addDeckDescription"></textarea>
+
+    <div class="addDeckButtons">
+
+      <button type="button" class="btn btn-lg btn-default" ng-click="showAddDeck = false">Cancel</button>
+
+      <input class="addDeckSubmit btn btn-lg btn-success" type="submit"> 
+
+    </div>
+
+    <p ng-show="addDeckInvalid">Please Provide a Valid Deck Name</p>
+
+  </form>
+
+</div>
 
 <div class="notes">
 
