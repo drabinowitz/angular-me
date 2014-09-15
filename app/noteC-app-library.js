@@ -2,28 +2,46 @@ angular.module('noteCLibrary',['firebase']).
 
   constant('NOTEC_FIREBASE_URL','https://burning-fire-8322.firebaseio.com/').
 
-  constant('NOTEC_FIREBASE_DECKS','decks').
+  constant('NOTEC_FIREBASE_DECKS','decksArray/decks').
 
-  constant('NOTEC_FIREBASE_NOTECARDS','decks/{{ deckName }}/noteCards').
+  constant('NOTEC_FIREBASE_DECKS_MAP','decksArray/map').
+
+  constant('NOTEC_FIREBASE_NOTECARDS','decksArray/{{ deckName }}/noteCards').
+
+  constant('NOTEC_FIREBASE_NOTECARDS_MAP','decksArray/{{ deckName }}/map').
 
   factory('noteCFirebaseRequest',['$firebase','NOTEC_FIREBASE_URL',
   function($firebase,NOTEC_FIREBASE_URL){
 
-    var locator = function(location){
+    var locator = function(location,isArray){
 
       var firebaseRef = new Firebase(NOTEC_FIREBASE_URL + location);
 
       var sync = $firebase(firebaseRef);
 
-      return sync.$asObject();
+      if (isArray){
+
+        return sync.$asArray();
+        
+      } else {
+
+        return sync.$asObject();
+
+      }
 
     };
 
     return {
 
-      get : function(location){
+      asArray : function(location){
 
-        return locator(location);
+        return locator(location,true);
+
+      },
+
+      asObject : function(location){
+
+        return locator(location,false);
 
       }
 
@@ -107,8 +125,8 @@ angular.module('noteCLibrary',['firebase']).
 
   }]).
 
-  factory('noteCDataStore',['$interpolate','noteCFirebaseRequest','noteCPromiseGenerator','NOTEC_FIREBASE_DECKS','NOTEC_FIREBASE_NOTECARDS',
-  function($interpolate,noteCFirebaseRequest,noteCPromiseGenerator,NOTEC_FIREBASE_DECKS,NOTEC_FIREBASE_NOTECARDS){
+  factory('noteCDataStore',['$interpolate','noteCFirebaseRequest','noteCPromiseGenerator','NOTEC_FIREBASE_DECKS','NOTEC_FIREBASE_DECKS_MAP','NOTEC_FIREBASE_NOTECARDS','NOTEC_FIREBASE_NOTECARDS_MAP',
+  function($interpolate,noteCFirebaseRequest,noteCPromiseGenerator,NOTEC_FIREBASE_DECKS,NOTEC_FIREBASE_DECKS_MAP,NOTEC_FIREBASE_NOTECARDS,NOTEC_FIREBASE_NOTECARDS_MAP){
 
     var decks;
 
@@ -118,7 +136,7 @@ angular.module('noteCLibrary',['firebase']).
 
       if(!decks){
 
-        decks = noteCFirebaseRequest.get(NOTEC_FIREBASE_DECKS);
+        decks = noteCFirebaseRequest.asObject(NOTEC_FIREBASE_DECKS);
 
         return noteCPromiseGenerator.objectStandard(decks,'$loaded');
 
@@ -154,13 +172,13 @@ angular.module('noteCLibrary',['firebase']).
 
         get : function(deckName){
 
-          var decksToReturn = function(decks){ return decks };
+          var decksToReturn = function(decks){ return decks.map };
 
           if(deckName){
 
             decksToReturn = function(decks){
 
-              return decks[deckName];
+              return decks[decks.map[deckName]];
 
             };
 
@@ -172,13 +190,27 @@ angular.module('noteCLibrary',['firebase']).
 
         add : function(title,description){
 
-          if(decks[title] == undefined){
+          if(decks.map[title] == undefined){
 
             var inputDescription = description || '';
 
             decks[title] = {description : inputDescription}
 
-            return noteCPromiseGenerator.objectStandard(decks,'$save');
+            return noteCPromiseGenerator.standard(function(){
+
+              decks.$add({
+
+                title : title,
+
+                description : description
+
+              });
+
+            },function(ref){
+
+              decks.map[title] = 
+
+            });
 
           }
 

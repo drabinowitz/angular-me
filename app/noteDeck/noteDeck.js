@@ -12,8 +12,6 @@ directivesModule.directive('noteDeck',['noteCDataStore',function(noteCDataStore)
 
     link : function(scope, element, attrs){
 
-      scope.title = attrs.noteDeckTitle;
-
       noteCDataStore.decks.get( attrs.noteDeckTitle ).then(function(deck){
 
         scope.deck = deck;
