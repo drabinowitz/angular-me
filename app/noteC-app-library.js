@@ -4,11 +4,7 @@ angular.module('noteCLibrary',['firebase']).
 
   constant('NOTEC_FIREBASE_DECKS','decksArray/decks').
 
-  constant('NOTEC_FIREBASE_DECKS_MAP','decksArray/map').
-
   constant('NOTEC_FIREBASE_NOTECARDS','decksArray/{{ deckName }}/noteCards').
-
-  constant('NOTEC_FIREBASE_NOTECARDS_MAP','decksArray/{{ deckName }}/map').
 
   factory('noteCFirebaseRequest',['$firebase','NOTEC_FIREBASE_URL',
   function($firebase,NOTEC_FIREBASE_URL){
@@ -125,8 +121,8 @@ angular.module('noteCLibrary',['firebase']).
 
   }]).
 
-  factory('noteCDataStore',['$interpolate','noteCFirebaseRequest','noteCPromiseGenerator','NOTEC_FIREBASE_DECKS','NOTEC_FIREBASE_DECKS_MAP','NOTEC_FIREBASE_NOTECARDS','NOTEC_FIREBASE_NOTECARDS_MAP',
-  function($interpolate,noteCFirebaseRequest,noteCPromiseGenerator,NOTEC_FIREBASE_DECKS,NOTEC_FIREBASE_DECKS_MAP,NOTEC_FIREBASE_NOTECARDS,NOTEC_FIREBASE_NOTECARDS_MAP){
+  factory('noteCDataStore',['$interpolate','noteCFirebaseRequest','noteCPromiseGenerator','NOTEC_FIREBASE_DECKS','NOTEC_FIREBASE_NOTECARDS',
+  function($interpolate,noteCFirebaseRequest,noteCPromiseGenerator,NOTEC_FIREBASE_DECKS,NOTEC_FIREBASE_NOTECARDS){
 
     var decks;
 
@@ -136,7 +132,7 @@ angular.module('noteCLibrary',['firebase']).
 
       if(!decks){
 
-        decks = noteCFirebaseRequest.asObject(NOTEC_FIREBASE_DECKS);
+        decks = noteCFirebaseRequest.asArray(NOTEC_FIREBASE_DECKS);
 
         return noteCPromiseGenerator.objectStandard(decks,'$loaded');
 
@@ -170,11 +166,11 @@ angular.module('noteCLibrary',['firebase']).
 
       decks : {
 
-        get : function(deckName){
+        get : function(){
 
-          var decksToReturn = function(decks){ return decks.map };
+/*          var decksToReturn = function(decks){ return decks };
 
-          if(deckName){
+          if(deck){
 
             decksToReturn = function(decks){
 
@@ -183,36 +179,26 @@ angular.module('noteCLibrary',['firebase']).
             };
 
           }
-
-          return noteCPromiseGenerator.standard(queryForDecks,decksToReturn);
+*/
+          return noteCPromiseGenerator.standard(queryForDecks);
 
         },
 
         add : function(title,description){
 
-          if(decks.map[title] == undefined){
+          var inputDescription = description || '';
 
-            var inputDescription = description || '';
+          return noteCPromiseGenerator.standard(function(){
 
-            decks[title] = {description : inputDescription}
+            return decks.$add({
 
-            return noteCPromiseGenerator.standard(function(){
+              title : title,
 
-              decks.$add({
-
-                title : title,
-
-                description : description
-
-              });
-
-            },function(ref){
-
-              decks.map[title] = 
+              description : inputDescription
 
             });
 
-          }
+          });
 
         },
 
