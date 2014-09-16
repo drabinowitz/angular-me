@@ -222,23 +222,25 @@ angular.module('noteCLibrary',['firebase']).
 
         edit : function(title,editTitle,editDescription){
 
-          if(title == editTitle){
+          var deck = decks.$getRecord(deckMap[title]);
 
-            decks[title].description = editDescription;
+          deck.description = editDescription;
 
-            return noteCPromiseGenerator.objectStandard(decks,'$save');
+          if (title !== editTitle && typeof deckMap[editTitle] === 'undefined'){
 
-          } else if (decks[editTitle] == undefined){
+            deck.title = editTitle
 
-            var dataStore = this;
+            deckMap[editTitle] = deck.$id;
 
-            decks[editTitle] = decks[title];
+            delete deckMap[title];
 
-            decks[editTitle].description = editDescription;
+            deckMap.$save();
 
-            return this.remove(title);
+            title = editTitle;           
 
           }
+
+          decks.$save(decks.$indexFor(deckMap[title]));
 
         },
 

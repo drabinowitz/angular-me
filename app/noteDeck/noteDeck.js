@@ -34,15 +34,15 @@ directivesModule.directive('noteDeck',['noteCDataStore',function(noteCDataStore)
 
         scope.showEdit = true;
 
-        scope.editTitle = scope.title;
+        scope.editTitle = scope.deck.title;
 
-        scope.editDescription = scope.deckDescription;
+        scope.editDescription = scope.deck.description;
 
       };
 
       scope.submit = function(editTitle,editDescription){
 
-        noteCDataStore.decks.edit(scope.title,editTitle,editDescription);
+        noteCDataStore.decks.edit(scope.deck.title,editTitle,editDescription);
 
         scope.showEdit = false;
 
