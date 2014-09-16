@@ -12,7 +12,11 @@ directivesModule.directive('noteDeck',['noteCDataStore',function(noteCDataStore)
 
     link : function(scope, element, attrs){
 
-      scope.deck = JSON.parse(attrs.deck);
+      noteCDataStore.decks.get(attrs.deck).then(function(result){
+
+        scope.deck = result;
+
+      });
 
       // scope.deckDescription = attrs.noteDeckDescription;
 

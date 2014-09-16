@@ -36,9 +36,9 @@
 
   <ol>
 
-    <div class="col-md-4 col-sm-6" ng-repeat="(deckKey,deckValue) in noteDecks | filter:deckFilter">
+    <div class="col-md-4 col-sm-6" ng-repeat="(deckName,deckKey) in noteDecks | filter:deckFilter">
 
-      <note-deck class="noteDeckWrapper" deck="{{ deckValue }}">
+      <note-deck class="noteDeckWrapper" deck="{{ deckName }}">
 
       </note-deck>
 

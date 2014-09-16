@@ -4,7 +4,11 @@ angular.module('noteCLibrary',['firebase']).
 
   constant('NOTEC_FIREBASE_DECKS','decksArray/decks').
 
+  constant('NOTEC_FIREBASE_DECKS_MAP','decksArray/map').
+
   constant('NOTEC_FIREBASE_NOTECARDS','decksArray/{{ deckName }}/noteCards').
+
+  constant('NOTEC_FIREBASE_NOTECARDS_MAP','decksArray/{{ deckName }}/map').
 
   factory('noteCFirebaseRequest',['$firebase','NOTEC_FIREBASE_URL',
   function($firebase,NOTEC_FIREBASE_URL){
@@ -121,10 +125,12 @@ angular.module('noteCLibrary',['firebase']).
 
   }]).
 
-  factory('noteCDataStore',['$interpolate','noteCFirebaseRequest','noteCPromiseGenerator','NOTEC_FIREBASE_DECKS','NOTEC_FIREBASE_NOTECARDS',
-  function($interpolate,noteCFirebaseRequest,noteCPromiseGenerator,NOTEC_FIREBASE_DECKS,NOTEC_FIREBASE_NOTECARDS){
+  factory('noteCDataStore',['$interpolate','noteCFirebaseRequest','noteCPromiseGenerator','NOTEC_FIREBASE_DECKS','NOTEC_FIREBASE_DECKS_MAP','NOTEC_FIREBASE_NOTECARDS','NOTEC_FIREBASE_NOTECARDS_MAP',
+  function($interpolate,noteCFirebaseRequest,noteCPromiseGenerator,NOTEC_FIREBASE_DECKS,NOTEC_FIREBASE_DECKS_MAP,NOTEC_FIREBASE_NOTECARDS,NOTEC_FIREBASE_NOTECARDS_MAP){
 
     var decks;
+
+    var deckMap;
 
     var cards = {};
 
@@ -134,11 +140,13 @@ angular.module('noteCLibrary',['firebase']).
 
         decks = noteCFirebaseRequest.asArray(NOTEC_FIREBASE_DECKS);
 
-        return noteCPromiseGenerator.objectStandard(decks,'$loaded');
+        deckMap = noteCFirebaseRequest.asObject(NOTEC_FIREBASE_DECKS_MAP);
+
+        return noteCPromiseGenerator.objectStandard(deckMap,'$loaded');
 
       } else {
 
-        return noteCPromiseGenerator.instant(decks);
+        return noteCPromiseGenerator.instant(deckMap);
 
       }
 
@@ -166,39 +174,49 @@ angular.module('noteCLibrary',['firebase']).
 
       decks : {
 
-        get : function(){
+        get : function(deck){
 
-/*          var decksToReturn = function(decks){ return decks };
+          var decksToReturn = function(deckMap){ return deckMap };
 
           if(deck){
 
-            decksToReturn = function(decks){
+            decksToReturn = function(deckMap){
 
-              return decks[decks.map[deckName]];
+              return decks.$getRecord(deckMap[deck]);
 
             };
 
           }
-*/
-          return noteCPromiseGenerator.standard(queryForDecks);
+
+          return noteCPromiseGenerator.standard(queryForDecks,decksToReturn);
 
         },
 
         add : function(title,description){
 
-          var inputDescription = description || '';
+          if (typeof deckMap[title] === 'undefined'){
 
-          return noteCPromiseGenerator.standard(function(){
+            var inputDescription = description || '';
 
-            return decks.$add({
+            return noteCPromiseGenerator.standard(function(){
 
-              title : title,
+              return decks.$add({
 
-              description : inputDescription
+                title : title,
 
+                description : inputDescription
+
+              });
+
+            },function(ref){
+
+              deckMap[title] = ref.name();
+
+              deckMap.$save();
+              
             });
 
-          });
+          }
 
         },
 
