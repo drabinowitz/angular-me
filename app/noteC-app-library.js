@@ -6,9 +6,9 @@ angular.module('noteCLibrary',['firebase']).
 
   constant('NOTEC_FIREBASE_DECKS_MAP','decksArray/map').
 
-  constant('NOTEC_FIREBASE_NOTECARDS','decksArray/{{ deckName }}/noteCards').
+  constant('NOTEC_FIREBASE_NOTECARDS','decksArray/decks/{{ deckName }}/noteCards').
 
-  constant('NOTEC_FIREBASE_NOTECARDS_MAP','decksArray/{{ deckName }}/map').
+  constant('NOTEC_FIREBASE_NOTECARDS_MAP','decksArray/decks/{{ deckName }}/map').
 
   factory('noteCFirebaseRequest',['$firebase','NOTEC_FIREBASE_URL',
   function($firebase,NOTEC_FIREBASE_URL){
@@ -154,15 +154,7 @@ angular.module('noteCLibrary',['firebase']).
 
     function queryForCards(deckName){
 
-      if(typeof cards[deckName] === 'undefined'){
-
-        cards[deckName] = {};
-
-        if (typeof deckMap === 'undefined'){
-
-
-
-        }
+      function request(){
 
         var cardsPath = $interpolate(NOTEC_FIREBASE_NOTECARDS)({deckName : deckMap[deckName]});
 
@@ -173,6 +165,22 @@ angular.module('noteCLibrary',['firebase']).
         cards[deckName].map = noteCFirebaseRequest.asObject(cardsMapPath);
 
         return noteCPromiseGenerator.objectStandard(cards[deckName].map,'$loaded');
+
+      }
+
+      if(typeof cards[deckName] === 'undefined'){
+
+        cards[deckName] = {};
+
+        if (typeof deckMap === 'undefined'){
+
+          return queryForDecks().then(request);
+
+        } else {
+
+          return request();
+
+        }
 
       } else {
 
@@ -290,7 +298,7 @@ angular.module('noteCLibrary',['firebase']).
 
             cardsToReturn = function(cardMap){
 
-              return cards[deckName].list.$getRecord(cardTitle);
+              return cards[deckName].list.$getRecord(cards[deckName].map[cardTitle]);
 
             };
 
@@ -306,6 +314,8 @@ angular.module('noteCLibrary',['firebase']).
 
         add : function(deckName,title,content){
 
+          var inputContent = content || '';
+
           if (typeof cards[deckName].map[title] === 'undefined'){
 
             return noteCPromiseGenerator.standard(function(){
@@ -314,7 +324,7 @@ angular.module('noteCLibrary',['firebase']).
 
                 title : title,
 
-                content : content
+                content : inputContent
 
               });
 
