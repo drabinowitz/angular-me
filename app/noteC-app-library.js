@@ -136,7 +136,7 @@ angular.module('noteCLibrary',['firebase']).
 
     function queryForDecks (){
 
-      if(!decks){
+      if(typeof decks === 'undefined'){
 
         decks = noteCFirebaseRequest.asArray(NOTEC_FIREBASE_DECKS);
 
@@ -154,7 +154,7 @@ angular.module('noteCLibrary',['firebase']).
 
     function queryForCards(deckName){
 
-      if(!cards[deckName]){
+      if(typeof cards[deckName] === 'undefined'){
 
         var path = $interpolate(NOTEC_FIREBASE_NOTECARDS)({deckName : deckName});
 
