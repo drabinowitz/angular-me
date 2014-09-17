@@ -156,15 +156,27 @@ angular.module('noteCLibrary',['firebase']).
 
       if(typeof cards[deckName] === 'undefined'){
 
-        var path = $interpolate(NOTEC_FIREBASE_NOTECARDS)({deckName : deckName});
+        cards[deckName] = {};
 
-        cards[deckName] = noteCFirebaseRequest.get(path);
+        if (typeof deckMap === 'undefined'){
 
-        return noteCPromiseGenerator.objectStandard(cards[deckName],'$loaded');
+
+
+        }
+
+        var cardsPath = $interpolate(NOTEC_FIREBASE_NOTECARDS)({deckName : deckMap[deckName]});
+
+        var cardsMapPath = $interpolate(NOTEC_FIREBASE_NOTECARDS_MAP)({deckName : deckMap[deckName]});
+
+        cards[deckName].list = noteCFirebaseRequest.asArray(cardsPath);
+
+        cards[deckName].map = noteCFirebaseRequest.asObject(cardsMapPath);
+
+        return noteCPromiseGenerator.objectStandard(cards[deckName].map,'$loaded');
 
       } else {
 
-        return noteCPromiseGenerator.instant(cards[deckName]);
+        return noteCPromiseGenerator.instant(cards[deckName].map);
 
       }
 
@@ -272,13 +284,13 @@ angular.module('noteCLibrary',['firebase']).
 
         get : function(deckName,cardTitle){
 
-          var cardsToReturn = function (cards){ return cards };
+          var cardsToReturn = function (cardMap){ return cardMap };
 
           if(cardTitle){
 
-            cardsToReturn = function(cards){
+            cardsToReturn = function(cardMap){
 
-              return cards[cardTitle];
+              return cards[deckName].list.$getRecord(cardTitle);
 
             };
 
@@ -294,13 +306,36 @@ angular.module('noteCLibrary',['firebase']).
 
         add : function(deckName,title,content){
 
+          if (typeof cards[deckName].map[title] === 'undefined'){
+
+            return noteCPromiseGenerator.standard(function(){
+
+              return cards[deckName].list.$add({
+
+                title : title,
+
+                content : content
+
+              });
+
+            },function(ref){
+
+              cards[deckName].map[title] = ref.name();
+
+              cards[deckName].map.$save();
+              
+            });
+
+          }
+
+
           if(cards[deckName][title] == undefined){
 
             var inputContent = content || '';
 
             cards[deckName][title] = {content : inputContent};
 
-            return noteCPromiseGenerator.objectStandard(cards[deckName],'$save');
+            return noteCPromiseGenerator.objectStandard(cardSets[deckName],'$save');
 
           }
 
