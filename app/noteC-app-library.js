@@ -246,13 +246,23 @@ angular.module('noteCLibrary',['firebase']).
 
         remove : function(title){
 
+          var deck;
+
           for (var i = 0; i < arguments.length; i++){
 
-            delete decks[arguments[i]];
+            if (typeof deckMap[title] !== 'undefined'){
+
+              deck = decks.$getRecord(deckMap[title]);
+
+              decks.$remove(deck);
+
+              delete deckMap[title];
+              
+            }
 
           }
 
-          return noteCPromiseGenerator.objectStandard(decks,'$save');
+          deckMap.$save();
 
         }
 

@@ -22,9 +22,9 @@ directivesModule.directive('noteDeck',['noteCDataStore',function(noteCDataStore)
 
       scope.showDelete = false;
 
-      scope.deleteDeck = function(title){
+      scope.deleteDeck = function(){
 
-        noteCDataStore.decks.remove(title);
+        noteCDataStore.decks.remove(scope.deck.title);
 
         scope.showDelete = false;
 
