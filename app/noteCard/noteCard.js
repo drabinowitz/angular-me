@@ -28,7 +28,7 @@ directivesModule.directive('noteCard',['noteCDataStore',function(noteCDataStore)
 
         scope.showEdit = true;
 
-        scope.editTitle = scope.title;
+        scope.editTitle = scope.card.title;
 
         scope.editContent = scope.card.content;
 
@@ -36,7 +36,7 @@ directivesModule.directive('noteCard',['noteCDataStore',function(noteCDataStore)
 
       scope.submit = function(editTitle,editContent){
 
-        noteCDataStore.cards.edit(scope.deckName,scope.title,editTitle,editContent);
+        noteCDataStore.cards.edit(attrs.deck,scope.card.title,editTitle,editContent);
 
         scope.showEdit = false;
 

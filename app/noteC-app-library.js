@@ -338,38 +338,31 @@ angular.module('noteCLibrary',['firebase']).
 
           }
 
-
-          if(cards[deckName][title] == undefined){
-
-            var inputContent = content || '';
-
-            cards[deckName][title] = {content : inputContent};
-
-            return noteCPromiseGenerator.objectStandard(cardSets[deckName],'$save');
-
-          }
-
         },
 
         edit : function(deckName,title,editTitle,editContent){
 
-          if(title == editTitle){
+          if(typeof cards[deckName].map[editTitle] === 'undefined'){
 
-            cards[deckName][title].content = editContent;
-
-            return noteCPromiseGenerator.objectStandard(cards[deckName],'$save');
-
-          } else if (cards[deckName][editTitle] == undefined){
-
-            var dataStore = this;
-
-            cards[deckName][editTitle] = cards[deckName][title];
-
-            cards[deckName][editTitle].content = editContent;
-
-            return this.remove(deckName,title);
+            cards[deckName].list.$getRecord(cards[deckName].map[title]).title = editTitle;
 
           }
+
+          cards[deckName].list.$getRecord(cards[deckName].map[title]).content = editContent;
+
+          return noteCPromiseGenerator.standard(function(){
+
+            return cards[deckName].list.$save(cards[deckName].list.$indexFor(cards[deckName].map[title]));
+
+          },function(ref){
+
+            delete cards[deckName].map[title];
+
+            cards[deckName].map[editTitle] = ref.name();
+
+            cards[deckName].map.$save();
+              
+          });
 
         },
 
