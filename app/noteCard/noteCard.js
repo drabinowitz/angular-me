@@ -18,9 +18,9 @@ directivesModule.directive('noteCard',['noteCDataStore',function(noteCDataStore)
 
       });
 
-      scope.deleteCard = function(deckName,cardTitle){
+      scope.deleteCard = function(){
 
-        noteCDataStore.cards.remove(deckName,cardTitle);
+        noteCDataStore.cards.remove(attrs.deck,scope.card.title);
 
       };
 

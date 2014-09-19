@@ -342,9 +342,21 @@ angular.module('noteCLibrary',['firebase']).
 
         edit : function(deckName,title,editTitle,editContent){
 
+          var addToMap;
+
           if(typeof cards[deckName].map[editTitle] === 'undefined'){
 
             cards[deckName].list.$getRecord(cards[deckName].map[title]).title = editTitle;
+
+            addToMap = function(ref){
+
+              delete cards[deckName].map[title];
+
+              cards[deckName].map[editTitle] = ref.name();
+
+              cards[deckName].map.$save();
+                
+            };
 
           }
 
@@ -354,28 +366,32 @@ angular.module('noteCLibrary',['firebase']).
 
             return cards[deckName].list.$save(cards[deckName].list.$indexFor(cards[deckName].map[title]));
 
-          },function(ref){
-
-            delete cards[deckName].map[title];
-
-            cards[deckName].map[editTitle] = ref.name();
-
-            cards[deckName].map.$save();
-              
-          });
+          },addToMap);
 
         },
 
         remove : function(deckName,title){
 
-          for(var i = 1; i < arguments.length; i++){
+          var removeArgs = arguments;
 
-            delete cards[deckName][arguments[i]];
+          for(var i = 1; i < removeArgs.length; i++){
+
+            var j = i;
+
+            noteCPromiseGenerator.standard(function(){
+
+              return cards[deckName].list.$remove(cards[deckName].list.$getRecord(cards[deckName].map[removeArgs[i]]));
+
+            },function(){
+
+              delete cards[deckName].map[removeArgs[j]];
+
+              cards[deckName].map.$save();
+
+            });
 
           }
               
-          return noteCPromiseGenerator.objectStandard(cards[deckName],'$save');
-
         }
         
       }
