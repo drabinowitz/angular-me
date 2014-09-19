@@ -2,13 +2,13 @@ angular.module('noteCLibrary',['firebase']).
 
   constant('NOTEC_FIREBASE_URL','https://burning-fire-8322.firebaseio.com/').
 
-  constant('NOTEC_FIREBASE_DECKS','decksArray/decks').
+  constant('NOTEC_FIREBASE_DECKS','decks').
 
-  constant('NOTEC_FIREBASE_DECKS_MAP','decksArray/map').
+  constant('NOTEC_FIREBASE_DECKS_MAP','map').
 
-  constant('NOTEC_FIREBASE_NOTECARDS','decksArray/decks/{{ deckName }}/noteCards').
+  constant('NOTEC_FIREBASE_NOTECARDS','decks/{{ deckName }}/noteCards').
 
-  constant('NOTEC_FIREBASE_NOTECARDS_MAP','decksArray/decks/{{ deckName }}/map').
+  constant('NOTEC_FIREBASE_NOTECARDS_MAP','decks/{{ deckName }}/map').
 
   factory('noteCFirebaseRequest',['$firebase','NOTEC_FIREBASE_URL',
   function($firebase,NOTEC_FIREBASE_URL){
