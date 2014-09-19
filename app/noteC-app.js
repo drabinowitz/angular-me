@@ -40,6 +40,12 @@ angular.module('noteCApp',['ngRoute','ngAnimate','noteCAppViews']).
 
       }
 
-    }
+    };
+
+    $scope.$on('showOverlay',function(event,willShow){
+
+      $scope.showOverlay = willShow;
+
+    });
 
   }]);

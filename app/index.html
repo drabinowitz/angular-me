@@ -27,6 +27,8 @@
       <h1>NoteC</h1>
 
     <div ng-controller="tabCtrl">
+
+      <div ng-show="showOverlay" class="overlay"></div>
       
       <a ng-class="{ selected : isCurrentTab(tab.name) }" class="tabs" ng-repeat="tab in tabs" ng-href="{{ tab.link }}">{{ tab.name }}</a>
       

@@ -1,3 +1,25 @@
+form.massDeleteFormWrapper {
+
+  position: absolute;
+
+  display: block;
+
+  width: 100%;
+
+  z-index: 101;
+
+}
+
+form.massDeleteForm {
+
+  display: block;
+
+  width: 300px;
+
+  margin: auto;
+
+}
+
 form.addCardForm {
 
   position: fixed;
@@ -86,6 +108,22 @@ div.cards {
   overflow: auto;
 
   margin-bottom: 300px;
+
+}
+
+input.cardSelection {
+
+  position: absolute;
+
+  right: 73px;
+
+  top: 16px;
+
+  z-index: 9;
+
+  height: 28px;
+
+  width: 28px;
 
 }
 

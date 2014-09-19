@@ -4,22 +4,6 @@
 
 </div>
 
-<button class="showMassDelete btn btn-md btn-danger" ng-click="ctrl.showMassDeleteForm(true)">Delete Selected Firms</button>
-
-<div class="massDeleteFormWrapper" ng-show="showMassDelete">
-
-  <form name="massDeleteForm" class="massDeleteForm" ng-submit="ctrl.submitMassDeleteForm()">
-
-    <p>Are you sure you want to delete these selected cards?</p>
-
-    <button type="button" class="choose btn btn-md btn-default" ng-click="ctrl.showMassDeleteForm(false)">Cancel</button>
-
-    <button class="choose btn btn-md btn-danger" ng-click="ctrl.submitMassDeleteForm()">Delete</button>
-
-  </form>
-
-</div>
-
 <form name="addCardForm" class="addCardForm" ng-submit="ctrl.addNoteCard(addCardTitle,addCardContent)" novalidate>
 
   <h4 class="addCardTitle">Add New Card to Deck</h4>
@@ -41,8 +25,6 @@
 <div class="cards">
 
   <div class="col-md-4 col-sm-6" ng-repeat="(cardKey,cardValue) in noteCards | with:cardFilter">
-
-    <input class="cardSelection" type="checkbox" ng-click="selected[cardKey] = !selected[cardKey]">
 
     <note-card class="noteCardWrapper" card="{{ cardKey }}" deck="{{ deckName }}">
       

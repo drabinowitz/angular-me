@@ -12,9 +12,15 @@ viewsModule.config(['$routeProvider',function($routeProvider){
 
 controller('noteCardsCtrl',['$scope','$route','noteCDataStore',function($scope,$route,noteCDataStore){
 
+  var ctrl = this;
+
   $scope.deckName = $route.current.params.noteDeck;
 
   $scope.addCardInvalid = false;
+
+  $scope.selected = {};
+
+  $scope.showMassDelete = false;
 
   noteCDataStore.cards.get($scope.deckName).then(function(result){
 
@@ -33,6 +39,40 @@ controller('noteCardsCtrl',['$scope','$route','noteCDataStore',function($scope,$
     } else {
 
       $scope.addCardInvalid = true;
+
+    }
+
+    this.showMassDeleteForm = function(willShow){
+
+        $scope.showMassDelete = willShow;
+
+        $scope.emit('showOverlay',willShow);
+
+    }
+
+    this.submitMassDeleteForm = function(){
+
+      var cardsToDelete = [];
+
+      for (var card in $scope.selected){
+
+        if ($scope.selected[card]){
+
+          cardsToDelete.push(card)
+
+        }
+
+      }
+
+      if (cardsToDelete.length){
+
+        cardsToDelete.unshift($scope.deckName);
+
+        noteCDataStore.cards.remove.apply(undefined,cardsToDelete);
+
+      }
+
+      ctrl.showMassDeleteForm(false);
 
     }
 
