@@ -374,21 +374,25 @@ angular.module('noteCLibrary',['firebase']).
 
           var removeArgs = arguments;
 
-          for(var i = 1; i < removeArgs.length; i++){
+          var mapHandler = function(input){
 
-            var j = i;
+            return function(){
+
+              delete cards[deckName].map[removeArgs[input]];
+
+              cards[deckName].map.$save();
+
+            };
+
+          };
+
+          for(var i = 1; i < removeArgs.length; i++){
 
             noteCPromiseGenerator.standard(function(){
 
               return cards[deckName].list.$remove(cards[deckName].list.$getRecord(cards[deckName].map[removeArgs[i]]));
 
-            },function(){
-
-              delete cards[deckName].map[removeArgs[j]];
-
-              cards[deckName].map.$save();
-
-            });
+            },mapHandler(i));
 
           }
               

@@ -10,7 +10,7 @@ viewsModule.config(['$routeProvider',function($routeProvider){
 
 }]).
 
-controller('noteCardsCtrl',['$scope','$route','noteCDataStore',function($scope,$route,noteCDataStore){
+controller('noteCardsCtrl',['$rootScope','$scope','$route','noteCDataStore',function($rootScope,$scope,$route,noteCDataStore){
 
   var ctrl = this;
 
@@ -42,39 +42,39 @@ controller('noteCardsCtrl',['$scope','$route','noteCDataStore',function($scope,$
 
     }
 
-    this.showMassDeleteForm = function(willShow){
+  };
 
-        $scope.showMassDelete = willShow;
+  this.showMassDeleteForm = function(willShow){
 
-        $scope.emit('showOverlay',willShow);
+    $scope.showMassDelete = willShow;
 
-    }
+    $rootScope.$broadcast('showOverlay',willShow);
 
-    this.submitMassDeleteForm = function(){
+  };
 
-      var cardsToDelete = [];
+  this.submitMassDeleteForm = function(){
 
-      for (var card in $scope.selected){
+    var cardsToDelete = [];
 
-        if ($scope.selected[card]){
+    for (var card in $scope.selected){
 
-          cardsToDelete.push(card)
+      if ($scope.selected[card]){
 
-        }
-
-      }
-
-      if (cardsToDelete.length){
-
-        cardsToDelete.unshift($scope.deckName);
-
-        noteCDataStore.cards.remove.apply(undefined,cardsToDelete);
+        cardsToDelete.push(card)
 
       }
 
-      ctrl.showMassDeleteForm(false);
+    }
+
+    if (cardsToDelete.length){
+
+      cardsToDelete.unshift($scope.deckName);
+
+      noteCDataStore.cards.remove.apply(undefined,cardsToDelete);
 
     }
+
+    ctrl.showMassDeleteForm(false);
 
   };
 

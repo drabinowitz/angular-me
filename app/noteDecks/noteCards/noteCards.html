@@ -4,17 +4,17 @@
 
 </div>
 
-<button class="showMassDelete btn btn-md btn-danger" ng-click="ctrl.showMassDeleteForm(true)">Delete Selected Firms</button>
+<button class="showMassDelete btn btn-md btn-danger" ng-click="ctrl.showMassDeleteForm(true)">Delete Selected Cards</button>
 
 <div class="massDeleteFormWrapper" ng-show="showMassDelete">
 
   <form name="massDeleteForm" class="massDeleteForm" ng-submit="ctrl.submitMassDeleteForm()">
 
-    <p>Are you sure you want to delete these selected cards?</p>
+    <p class="massDeleteText">Are you sure you want to delete these cards?</p>
 
-    <button type="button" class="choose btn btn-md btn-default" ng-click="ctrl.showMassDeleteForm(false)">Cancel</button>
+    <button type="button" class="massDeleteBtn btn btn-md btn-default" ng-click="ctrl.showMassDeleteForm(false)">Cancel</button>
 
-    <button class="choose btn btn-md btn-danger" ng-click="ctrl.submitMassDeleteForm()">Delete</button>
+    <button class="massDeleteBtn btn btn-md btn-danger" ng-click="ctrl.submitMassDeleteForm()">Delete</button>
 
   </form>
 

@@ -1,4 +1,4 @@
-form.massDeleteFormWrapper {
+div.massDeleteFormWrapper {
 
   position: absolute;
 
@@ -17,6 +17,14 @@ form.massDeleteForm {
   width: 300px;
 
   margin: auto;
+
+  background-color: white;
+
+  height: 200px;
+
+  border-radius: 15px;
+
+  border: 1px solid #eee;
 
 }
 
@@ -38,6 +46,31 @@ form.addCardForm {
 
 }
 
+button.showMassDelete {
+
+  float: right;
+
+  margin-right: 20px;
+
+}
+
+p.massDeleteText {
+
+  text-align: center;
+
+  margin: 23px 51px;
+
+}
+
+button.massDeleteBtn {
+
+  position: relative;
+
+  margin-left: 48px;
+
+  margin-top: 22px;
+
+}
 
 @media (min-width: 768px) {
 
