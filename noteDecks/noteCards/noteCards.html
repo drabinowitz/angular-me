@@ -1,16 +1,22 @@
 <div class = "filter">
   
-  <input placeholder="Filter Cards" ng-model="cardFilter" />
+  <input class="filterInput" placeholder="Filter Cards" ng-model="cardFilter" />
 
 </div>
 
 <form name="addCardForm" class="addCardForm" ng-submit="ctrl.addNoteCard(addCardTitle,addCardContent)" novalidate>
+
+  <h4 class="addCardTitle">Add New Card to Deck</h4>
+
+  <label for="title">Card Name:</label>
   
-  <input type="text" placeholder="Card Name" ng-required="true" ng-model="addCardTitle">
+  <input class="addCardSetting" name="title" type="text" ng-required="true" ng-model="addCardTitle">
 
-  <input type="textarea" placeholder="Card Content" ng-model="addCardContent">
+  <label for="content">Card Content (optional):</label>
 
-  <input type="submit"> 
+  <textarea class="addCardSetting" name="content" cols="35" ng-model="addCardContent"></textarea>
+
+  <input class="btn btn-lg btn-success" type="submit"> 
 
   <p ng-show="addCardInvalid">Please Provide Valid Card Name and Content</p>
 
@@ -18,8 +24,12 @@
 
 <div class="cards">
 
-  <note-card ng-repeat="(cardName,cardProperties) in noteCards | with:cardFilter" note-card-deck="{{ deckName }}" note-card-title="{{ cardName }}">
-    
-  </note-card>
+  <div class="col-md-4 col-sm-6" ng-repeat="(cardKey,cardValue) in noteCards | with:cardFilter">
+
+    <note-card class="noteCardWrapper" card="{{ cardKey }}" deck="{{ deckName }}">
+      
+    </note-card>
+
+  </div>
 
 </div>
