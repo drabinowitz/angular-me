@@ -2,19 +2,21 @@
 
   <div class="noteDeckInfo noteDeckSlide" ng-show="!showEdit && !showDelete">
   
-    <a ng-href="#!/noteDecks/{{ title }}/noteCards">
+    <a ng-href="#!/noteDecks/{{ deck.title }}/noteCards">
 
-      <h3 class="noteDeckTitle">{{ title }}</h3>
+      <h3 class="noteDeckTitle">{{ deck.title }}</h3>
 
+      <!-- <div class="noteDeckDescription" ng-transclude></div> -->
+
+      <div class="noteDeckDescription">{{ deck.description }}</div>
+    
     </a>
-
-    <div class="noteDeckDescription" ng-transclude></div>
 
     <div class="noteDeckButtons">
 
-      <button class="showEdit btn btn-xs btn-warning" ng-show="!showEdit && !showDelete" ng-click="showEditForm()">Edit</button>
+      <button class="showEdit btn btn-md btn-info" ng-show="!showEdit && !showDelete" ng-click="showEditForm()">Edit</button>
 
-      <button class="showDelete btn btn-xs btn-danger" ng-show="!showEdit && !showDelete" ng-click="showDelete = true">Delete</button>
+      <button class="showDelete btn btn-md btn-danger" ng-show="!showEdit && !showDelete" ng-click="showDelete = true">Delete</button>
 
     </div>
 
@@ -34,9 +36,9 @@
 
         <div class="noteDeckButtons">
 
-          <button class="choose btn btn-xs btn-default" type="button" class="cancel" ng-click="showEdit = false">Cancel</button>
+          <button class="choose btn btn-md btn-default" type="button" class="cancel" ng-click="showEdit = false">Cancel</button>
 
-          <input class="choose btn btn-xs btn-warning" type="submit" value="Save">
+          <input class="choose btn btn-md btn-info" type="submit" value="Save">
 
         </div>
 
@@ -50,9 +52,9 @@
 
       <div class="noteDeckButtons">
 
-        <button class="choose btn btn-xs btn-default" ng-click="showDelete = false">Cancel</button>
+        <button class="choose btn btn-md btn-default" ng-click="showDelete = false">Cancel</button>
 
-        <button class="choose btn btn-xs btn-danger" ng-click="deleteDeck(title)">Delete</button>
+        <button class="choose btn btn-md btn-danger" ng-click="deleteDeck()">Delete</button>
 
       </div>
 
