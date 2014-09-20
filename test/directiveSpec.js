@@ -22,7 +22,13 @@ describe('noteCDirectives', function(){
 
 							then : function(callback){
 
-								callback({ content : 'test-content' });
+								callback({ 
+
+									title : 'test-card',
+
+									content : 'test-content'
+
+								});
 
 							}
 
@@ -40,7 +46,13 @@ describe('noteCDirectives', function(){
 
 							then : function(callback){
 
-								callback({ description : 'test-description' });
+								callback({ 
+
+									title : 'test-deck',
+
+									description : 'test-description'
+
+								});
 
 							}
 
@@ -64,7 +76,7 @@ describe('noteCDirectives', function(){
 
 			html="";
 
-			html += "<note-card note-card-deck='test-deck' note-card-title='test-card'></note-card>";
+			html += "<note-card deck='test-deck' card='test-card'></note-card>";
 
 			scope = $rootScope.$new();
 
@@ -94,7 +106,7 @@ describe('noteCDirectives', function(){
 
 			html="";
 
-			html += "<note-deck note-deck-title='test-title' note-deck-description='test-description'>test-description</note-deck>";
+			html += "<note-deck deck='test-deck'>test-description</note-deck>";
 
 			scope = $rootScope.$new();
 
@@ -108,7 +120,7 @@ describe('noteCDirectives', function(){
 
 		it('should correctly attach the directive controller', function() {
 
-			expect( element.find('div').text() ).toContain('test-title');
+			expect( element.find('div').text() ).toContain('test-deck');
 
 			expect( element.find('div').text() ).toContain('test-description');
 
