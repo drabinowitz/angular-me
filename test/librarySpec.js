@@ -187,11 +187,11 @@ ddescribe('noteCLibrary',function(){
 
 	      						};
 
-	      						callback(ref);
+	      						return callback(ref);
 
 	      					}
 
-	      				}
+	      				};
 
 	      			};
 
