@@ -1,4 +1,4 @@
-describe('noteCLibrary',function(){
+ddescribe('noteCLibrary',function(){
 
 	beforeEach( module('noteCApp') );
 
@@ -55,29 +55,51 @@ describe('noteCLibrary',function(){
 
 	      	standard : function(ajaxRequest,filter) {
 
-	      		if(filter == undefined){
+	      		var result = {};
 
-		      		return ajaxRequest();
+	      		filter = filter || function (input){return input};
 
-		      	} else {
+	      		result.then = function(callback){
 
-		      		return filter( ajaxRequest() );
+							var ajaxResult;
 
-		      	}
+							ajaxRequest().then(function(res){
+
+								ajaxResult = res;
+
+							});
+
+							callback( filter( ajaxResult ) );
+
+						};
+	      	
+		      	return result;
 	      	
 	      	},
 
 	      	objectStandard : function(requester,ajaxRequest,filter){
 
+	      		var result = {};
+
 	      		if(filter == undefined){
 
-		      		return requester;
+		      		result.then = function(callback){
+
+		      			return callback(requester);
+
+		      		};
 
 		      	} else {
 
-		      		return filter( requester );
+		      		result.then = function(callback) {
+
+		      			return callback( filter( requester ) );
+
+		      		};
 
 		      	}
+
+		      	return result;
 
 	      	},
 
@@ -95,7 +117,7 @@ describe('noteCLibrary',function(){
 
 	      		decks : {
 
-	      			AADECK : {
+	      			AA : {
 
 	      				title : 'test-deck',
 
@@ -103,7 +125,7 @@ describe('noteCLibrary',function(){
 
 	      				noteCards : {
 
-	      					AANOTE : {
+	      					AA : {
 
 	      						title : 'test-card',
 
@@ -115,7 +137,7 @@ describe('noteCLibrary',function(){
 
 	      				map : {
 
-	      					'test-card' : 'AANOTE'
+	      					'test-card' : 'AA'
 
 	      				}
 
@@ -125,7 +147,7 @@ describe('noteCLibrary',function(){
 
 	      		map : {
 
-	      			'test-deck' : 'AADECK'
+	      			'test-deck' : 'AA'
 
 	      		}
 
@@ -181,11 +203,29 @@ describe('noteCLibrary',function(){
 
 	      					if (arr[i] == obj){
 
-	      						
+	      						arr[i] = undefined;
 	      						
 	      					}
 
 	      				}
+
+		      			return {
+
+		      				then : function(callback){
+
+		      					var ref = {
+
+		      						name : function(){
+
+		      							return 'AA';
+
+		      						}
+
+		      					};
+
+		      				}
+
+		      			};
 
 	      			};
 
@@ -193,13 +233,13 @@ describe('noteCLibrary',function(){
 
 	      		};
 
-	      		if (path.match(/test-deck/)){
+	      		if (path.match(/A{2}|B{2}/)){
 
-	      			return arrayToReturn( this.fireBaseStruct.decks.AADECK.noteCards.AANOTE,'AANOTE' );
+	      			return arrayToReturn( this.fireBaseStruct.decks.AA.noteCards.AA,'AA' );
 
 	      		} else if(path.match(/decks/)){
 
-							return arrayToReturn( this.fireBaseStruct.decks.AADECK,'AADECK' );	      			
+							return arrayToReturn( this.fireBaseStruct.decks.AA,'AA' );	      			
 
 	      		}
 
@@ -209,7 +249,7 @@ describe('noteCLibrary',function(){
 
 	      		var objectToReturn = function(obj){
 
-	      			var result;
+	      			var result = {};
 
 	      			for (var item in obj){
 
@@ -235,13 +275,29 @@ describe('noteCLibrary',function(){
 
 	      			};
 
+	      			result.$loaded = function(){
+
+	      				return {
+
+	      					then : function(callback){
+
+	      						callback(result);
+
+	      					}
+
+	      				};
+
+	      			};
+
+	      			return result;
+
 	      		};
 
-	      		if (path.match(/test-deck/)){
+	      		if (path.match(/A{2}|B{2}/)){
 
-	      			return objectToReturn( this.fireBaseStruct.decks.AADECK.map );
+	      			return objectToReturn( this.fireBaseStruct.decks.AA.map );
 
-	      		} else if(path.match(/decks/)){
+	      		} else if(path.match(/map/)){
 
 							return objectToReturn( this.fireBaseStruct.map );	      			
 
@@ -258,9 +314,15 @@ describe('noteCLibrary',function(){
 		it('gets the decks and stores them',
 		inject(function(noteCDataStore){
 
-			var decks = noteCDataStore.decks.get();
+			var decks;
 
-			expect( decks['test-deck'].description ).toBe('test-deck');
+			noteCDataStore.decks.get().then(function(result){
+
+				decks = result;
+
+			});
+
+			expect( decks['test-deck'] ).toBe('AA');
 
 		}));
 
@@ -269,9 +331,13 @@ describe('noteCLibrary',function(){
 
 			var cards = {};
 
-			cards['test-deck'] = noteCDataStore.cards.get('test-deck');
+			noteCDataStore.cards.get('test-deck').then(function(result){
 
-			expect( cards['test-deck']['test-card'].content ).toBe('a test-card');
+				cards['test-deck'] = result;
+
+			});
+
+			expect( cards['test-deck']['test-card'] ).toBe('AA');
 
 		}));
 
@@ -288,14 +354,20 @@ describe('noteCLibrary',function(){
 
 		}));
 
-		it('enables adding decks',
+		iit('enables adding decks',
 		inject(function(noteCDataStore){
 
-			var decks = noteCDataStore.decks.get();
+			var decks;
+
+			noteCDataStore.decks.get().then(function(result){
+
+				decks = result;
+
+			});
 
 			noteCDataStore.decks.add('add-deck','add-description');
 
-			expect( decks['add-deck'].description ).toBe('add-description');
+			expect( decks['add-deck'] ).toBe('BB');
 
 		}));
 
