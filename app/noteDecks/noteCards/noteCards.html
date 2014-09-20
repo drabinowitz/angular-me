@@ -6,7 +6,7 @@
 
 </div>
 
-<button class="showMassDelete btn btn-md btn-danger" ng-click="ctrl.showMassDeleteForm(true)">Delete Selected Cards</button>
+<button class="showMassDelete btn btn-md btn-danger" ng-show="ctrl.areSelected()" ng-click="ctrl.showMassDeleteForm(true)">Delete Selected Cards</button>
 
 <div class="massDeleteFormWrapper" ng-show="showMassDelete">
 
@@ -44,9 +44,9 @@
 
   <div class="col-md-4 col-sm-6" ng-repeat="(cardKey,cardValue) in noteCards | with:cardFilter">
 
-    <input class="cardSelection" type="checkbox" ng-click="selected[cardKey] = !selected[cardKey]">
+    <!-- <input class="cardSelection" type="checkbox" ng-click="selected[cardKey] = !selected[cardKey]"> -->
 
-    <note-card class="noteCardWrapper" card="{{ cardKey }}" deck="{{ deckName }}">
+    <note-card class="noteCardWrapper" card="{{ cardKey }}" deck="{{ deckName }}" is-selectable="true">
       
     </note-card>
 
