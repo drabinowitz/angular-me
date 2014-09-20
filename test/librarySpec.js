@@ -2,7 +2,7 @@ describe('noteCLibrary',function(){
 
 	beforeEach( module('noteCApp') );
 
-	describe('noteCFirebaseRequest',function(){
+	xdescribe('noteCFirebaseRequest',function(){
 
 		it('requests data from firebase',	
 		inject(function(noteCFirebaseRequest,NOTEC_FIREBASE_DECKS){
@@ -91,33 +91,161 @@ describe('noteCLibrary',function(){
 
 	      $provide.value('noteCFirebaseRequest',{
 
-	      	get : function(path){
+	      	fireBaseStruct : {
 
-	      		var decks = {
+	      		decks : {
 
-	      			"test-deck" : {
+	      			AADECK : {
 
-	      				description : "test-deck",
+	      				title : 'test-deck',
+
+	      				description : 'test-description',
 
 	      				noteCards : {
 
-	      					"test-card" : { content : "a test-card" }
+	      					AANOTE : {
+
+	      						title : 'test-card',
+
+	      						content : 'test-content'
+
+	      					}
+
+	      				},
+
+	      				map : {
+
+	      					'test-card' : 'AANOTE'
 
 	      				}
 
 	      			}
 
+	      		},
+
+	      		map : {
+
+	      			'test-deck' : 'AADECK'
+
+	      		}
+
+	      	},
+
+	      	asArray : function(path){
+
+	      		var arrayToReturn = function(location,record){
+
+	      			var result = [location];
+
+	      			result[record] = 0;
+
+	      			result.$getRecord = function(key){
+
+	      				return result [ result [ key ] ];
+
+	      			};
+
+	      			result.$add = function(obj){
+
+	      				this.push(obj);
+
+	      				this.BB = 1;
+
+	      				return {
+
+	      					then : function (callback){
+
+	      						var ref = {
+
+	      							name : function(){
+
+	      								return BB;
+
+	      							}
+
+	      						};
+
+	      						callback(ref);
+
+	      					}
+
+	      				}
+
+	      			};
+
+	      			result.$remove = function(obj){
+
+	      				var arr = this;
+
+	      				for (var i = 0; i < arr.length; i++){
+
+	      					if (arr[i] == obj){
+
+	      						
+	      						
+	      					}
+
+	      				}
+
+	      			};
+
+	      			return result;
+
 	      		};
 
 	      		if (path.match(/test-deck/)){
 
-	      			return decks['test-deck'].noteCards;
+	      			return arrayToReturn( this.fireBaseStruct.decks.AADECK.noteCards.AANOTE,'AANOTE' );
 
 	      		} else if(path.match(/decks/)){
 
-	      			return decks;
+							return arrayToReturn( this.fireBaseStruct.decks.AADECK,'AADECK' );	      			
 
 	      		}
+
+	      	},
+
+	      	asObject : function(path){
+
+	      		var objectToReturn = function(obj){
+
+	      			var result;
+
+	      			for (var item in obj){
+
+	      				if (obj.hasOwnProperty(item)){
+
+	      					result[item] = obj[item];
+
+	      				}
+
+	      			}
+
+	      			result.$save = function(input){
+
+	      				return { 
+
+	      					then : function(callback){
+
+	      						callback(input);
+
+	      					}
+
+	      				};
+
+	      			};
+
+	      		};
+
+	      		if (path.match(/test-deck/)){
+
+	      			return objectToReturn( this.fireBaseStruct.decks.AADECK.map );
+
+	      		} else if(path.match(/decks/)){
+
+							return objectToReturn( this.fireBaseStruct.map );	      			
+
+	      		}	      		
 
 	      	}
 
