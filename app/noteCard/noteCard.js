@@ -12,6 +12,10 @@ directivesModule.directive('noteCard',['noteCDataStore',function(noteCDataStore)
 
     link : function(scope, element, attrs){
 
+      scope.isSelectable = attrs.isSelectable;
+
+      scope.selected = false;
+
       noteCDataStore.cards.get(attrs.deck,attrs.card).then(function(card){
 
         scope.card = card;
@@ -19,6 +23,8 @@ directivesModule.directive('noteCard',['noteCDataStore',function(noteCDataStore)
       });
 
       scope.deleteCard = function(){
+
+        scope.selected = false;
 
         noteCDataStore.cards.remove(attrs.deck,scope.card.title);
 
@@ -41,6 +47,12 @@ directivesModule.directive('noteCard',['noteCDataStore',function(noteCDataStore)
         scope.showEdit = false;
 
       };
+
+      scope.$watch('selected',function(newVal){
+
+        scope.$emit('selection change',attrs.card,newVal);
+
+      });
 
 /*      scope.hideEdit = function(){
 

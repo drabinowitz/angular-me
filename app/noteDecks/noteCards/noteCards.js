@@ -44,6 +44,28 @@ controller('noteCardsCtrl',['$rootScope','$scope','$route','noteCDataStore',func
 
   };
 
+  $scope.$on('selection change',function(event,card,isSelected){
+
+    $scope.selected[card] = isSelected;
+
+  });
+
+  this.areSelected = function(){
+
+    for (var item in $scope.selected){
+
+      if ($scope.selected.hasOwnProperty(item) && $scope.selected[item]){
+
+        return true;
+
+      }
+
+    }
+
+    return false;
+
+  }
+
   this.showMassDeleteForm = function(willShow){
 
     $scope.showMassDelete = willShow;
@@ -73,6 +95,8 @@ controller('noteCardsCtrl',['$rootScope','$scope','$route','noteCDataStore',func
       noteCDataStore.cards.remove.apply(undefined,cardsToDelete);
 
     }
+
+    $scope.selected = {};
 
     ctrl.showMassDeleteForm(false);
 

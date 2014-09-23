@@ -8,6 +8,12 @@
 
     <div class="noteCardTransclude" ng-transclude></div>
 
+    <div class="noteCardSelectable" ng-show="isSelectable">
+      
+      <input type="checkbox" class="noteCardSelection" ng-model="selected">
+
+    </div>
+
     <div class="noteCardButtons">
 
       <button class="showEdit btn btn-md btn-info" ng-click="showEditForm()">Edit</button>
