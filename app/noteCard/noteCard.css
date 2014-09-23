@@ -42,6 +42,28 @@ div.noteCard h3.noteCardTitle {
 
 }
 
+div.noteCardSelectable {
+
+  position: absolute;
+
+  top: 10px;
+
+  right: 10px;
+
+  /* height: 20px; */
+
+  /* width: 20px; */
+
+}
+
+input.noteCardSelection {
+
+  width: 20px;
+
+  height: 20px;
+
+}
+
 div.noteCard div.noteCardDescription {
 
   height: 85px;

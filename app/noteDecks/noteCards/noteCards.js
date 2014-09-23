@@ -44,7 +44,7 @@ controller('noteCardsCtrl',['$rootScope','$scope','$route','noteCDataStore',func
 
   };
 
-  $scope.$on('selection change',function(card,isSelected){
+  $scope.$on('selection change',function(event,card,isSelected){
 
     $scope.selected[card] = isSelected;
 
