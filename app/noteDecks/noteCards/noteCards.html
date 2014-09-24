@@ -6,7 +6,7 @@
 
 </div>
 
-<button class="showMassDelete btn btn-md btn-danger" ng-show="ctrl.areSelected()" ng-click="ctrl.showMassDeleteForm(true)">Delete Selected Cards</button>
+<button class="showMassDelete btn btn-md btn-danger" ng-disabled="!ctrl.areSelected()" ng-click="ctrl.showMassDeleteForm(true)">Delete Selected Cards</button>
 
 <div class="massDeleteFormWrapper" ng-show="showMassDelete">
 
