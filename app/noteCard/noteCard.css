@@ -10,6 +10,12 @@ div.noteCard {
 
 }
 
+div.noteCard div.noteCardInfo {
+
+  z-index: 101;
+
+}
+
 div.noteCard div.noteCardInfo, div.noteCard div.editCard, div.noteCard div.deleteCard {
 
   box-sizing: border-box;

@@ -10,6 +10,12 @@ div.noteDeck {
 
 }
 
+div.noteDeck div.noteDeckInfo {
+
+  z-index: 101;
+
+}
+
 div.noteDeck div.noteDeckInfo, div.noteDeck div.editDeck, div.noteDeck div.deleteDeck {
 
   box-sizing: border-box;
