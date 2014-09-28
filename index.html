@@ -4,7 +4,7 @@
 
   <title>NoteC</title>
 
-  <link rel="stylesheet" href="./assets/combined-47c2267e.css"/>
+  <link rel="stylesheet" href="./assets/combined-3f08ea86.css"/>
 
 </head>
 <body>
@@ -16,6 +16,8 @@
       <h1>NoteC</h1>
 
     <div ng-controller="tabCtrl">
+
+      <div ng-show="showOverlay" class="overlay"></div>
       
       <a ng-class="{ selected : isCurrentTab(tab.name) }" class="tabs" ng-repeat="tab in tabs" ng-href="{{ tab.link }}">{{ tab.name }}</a>
       
@@ -35,7 +37,7 @@
 
   </div>
 
-  <script src="./assets/combined-0e6ca20e.js"></script>
+  <script src="./assets/combined-8a479c35.js"></script>
 
 </body>
 </html>
