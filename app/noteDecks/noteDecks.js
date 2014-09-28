@@ -1,14 +1,4 @@
-viewsModule.config(['$routeProvider',function($routeProvider){
-
-  $routeProvider.when('/noteDecks',{
-
-    templateUrl : './noteDecks/noteDecks.html',
-
-    controller : 'noteDecksCtrl as ctrl'
-
-  });
-
-}]).
+viewsModule.
 
 controller('noteDecksCtrl',['$scope','noteCDataStore',function($scope,noteCDataStore){
 

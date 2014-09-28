@@ -30,7 +30,7 @@
 
       <div ng-show="showOverlay" class="overlay"></div>
       
-      <a ng-class="{ selected : isCurrentTab(tab.name) }" class="tabs" ng-repeat="tab in tabs" ng-href="{{ tab.link }}">{{ tab.name }}</a>
+      <a ng-class="{ selected : isCurrentTab(tab.name) }" class="tabs" ng-repeat="tab in tabs" ui-sref="{{ tab.state }}">{{ tab.name }}</a>
       
     </div>
 
@@ -40,7 +40,7 @@
       
       <div class="noteWrapperCol col-md-12">
         
-        <div class="noteWrapperView" ng-view></div>
+        <div class="noteWrapperView" ui-view></div>
 
       </div>
 
@@ -50,7 +50,7 @@
 
   <!-- build:js ./assets/combined.js -->
   <script type="text/javascript" src="bower_components/angular/angular.js"></script>
-  <script type="text/javascript" src="bower_components/angular-route/angular-route.js"></script>
+  <script type="text/javascript" src="bower_components/ui-router/release/angular-ui-router.js"></script>
   <script type="text/javascript" src="bower_components/angular-animate/angular-animate.js"></script>
   <script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
   <script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
@@ -61,7 +61,7 @@
   <script type="text/javascript" src="noteC-app-directives.js"></script>
   <script type="text/javascript" src="noteDeck/noteDeck.js"></script>
   <script type="text/javascript" src="noteCard/noteCard.js"></script>
-  <script type="text/javascript" src="home/home.js"></script>
+<!-- <script type="text/javascript" src="home/home.js"></script> -->
   <script type="text/javascript" src="noteDecks/noteDecks.js"></script>
   <script type="text/javascript" src="noteDecks/noteCards/noteCards.js"></script>
   <script type="text/javascript" src="noteC-app.js"></script>

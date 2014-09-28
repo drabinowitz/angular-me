@@ -1,4 +1,4 @@
-var viewsModule = angular.module('noteCAppViews',['ngRoute','ngAnimate','noteCLibrary','noteCDirectives']);
+var viewsModule = angular.module('noteCAppViews',['ui.router','ngAnimate','noteCLibrary','noteCDirectives']);
 
 viewsModule.filter('with', function() {
 

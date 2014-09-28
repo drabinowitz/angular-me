@@ -1,15 +1,32 @@
-angular.module('noteCApp',['ngRoute','ngAnimate','noteCAppViews']).
+angular.module('noteCApp',['ui.router','ngAnimate','noteCAppViews']).
 
-  config(['$locationProvider','$routeProvider', function($locationProvider,$routeProvider){
-    
-    $locationProvider.hashPrefix('!');
+  config(['$stateProvider','$urlRouterProvider', function($stateProvider,$urlRouterProvider){
 
-    $routeProvider.otherwise({
+    $urlRouterProvider.otherwise('/home');
 
-      redirectTo : '/home'
+    $stateProvider.
+
+    state('home',{
+
+      url : '/home',
+      templateUrl : 'home/home.html'
+
+    }).
+
+    state('noteDecks',{
+
+      url : '/noteDecks/:noteDeck',
+      templateUrl : 'noteDecks/noteDecks.html',
+
+    }).
+
+    state('noteDecks.noteCards',{
+
+      url : '/noteCards',
+      templateUrl : 'noteDecks/noteCards/noteCards.html'
 
     });
-
+    
   }]).
 
   controller('tabCtrl',['$scope','$location',function($scope,$location){
@@ -18,11 +35,11 @@ angular.module('noteCApp',['ngRoute','ngAnimate','noteCAppViews']).
 
       {name : 'Home',
 
-      link : '#!/home'},
+      state : 'home'},
 
       {name : 'NoteDecks',
 
-      link : '#!/noteDecks'},
+      state : 'noteDecks'},
 
     ];
 
