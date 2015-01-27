@@ -1,0 +1,145 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'install' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.33
+4 verbose node symlink /usr/local/bin/node
+5 warn package.json @ No description
+6 warn package.json @ No repository field.
+7 warn package.json @ No README data
+8 verbose readDependencies using package.json deps
+9 verbose install where, deps [ '/home/drabinowitz/Documents/github/angular-me',
+9 verbose install   [ 'MD5',
+9 verbose install     'body-parser',
+9 verbose install     'colors',
+9 verbose install     'connect',
+9 verbose install     'express',
+9 verbose install     'gulp',
+9 verbose install     'gulp-clean',
+9 verbose install     'gulp-connect',
+9 verbose install     'gulp-karma',
+9 verbose install     'gulp-minify-css',
+9 verbose install     'gulp-minify-html',
+9 verbose install     'gulp-nodemon',
+9 verbose install     'gulp-protractor',
+9 verbose install     'gulp-rev',
+9 verbose install     'gulp-shell',
+9 verbose install     'gulp-uglify',
+9 verbose install     'gulp-usemin',
+9 verbose install     'jasmine-jquery',
+9 verbose install     'karma',
+9 verbose install     'karma-jasmine',
+9 verbose install     'karma-ng-html2js-preprocessor',
+9 verbose install     'protractor',
+9 verbose install     'require',
+9 verbose install     'requirejs',
+9 verbose install     'sqlite3',
+9 verbose install     'karma-chrome-launcher' ] ]
+10 info preinstall @
+11 verbose readDependencies using package.json deps
+12 verbose already installed skipping MD5@^1.2.1 /home/drabinowitz/Documents/github/angular-me
+13 verbose already installed skipping body-parser@^1.4.3 /home/drabinowitz/Documents/github/angular-me
+14 verbose already installed skipping colors@^0.6.2 /home/drabinowitz/Documents/github/angular-me
+15 verbose already installed skipping connect@^3.0.2 /home/drabinowitz/Documents/github/angular-me
+16 verbose already installed skipping express@^4.6.1 /home/drabinowitz/Documents/github/angular-me
+17 verbose already installed skipping gulp@~3.8.8 /home/drabinowitz/Documents/github/angular-me
+18 verbose already installed skipping gulp-clean@^0.3.1 /home/drabinowitz/Documents/github/angular-me
+19 verbose already installed skipping gulp-connect@^2.0.6 /home/drabinowitz/Documents/github/angular-me
+20 verbose already installed skipping gulp-karma@0.0.4 /home/drabinowitz/Documents/github/angular-me
+21 verbose already installed skipping gulp-minify-css@^0.3.7 /home/drabinowitz/Documents/github/angular-me
+22 verbose already installed skipping gulp-minify-html@^0.1.4 /home/drabinowitz/Documents/github/angular-me
+23 verbose already installed skipping gulp-nodemon@^1.0.4 /home/drabinowitz/Documents/github/angular-me
+24 verbose already installed skipping gulp-protractor@0.0.11 /home/drabinowitz/Documents/github/angular-me
+25 verbose already installed skipping gulp-rev@^1.0.0 /home/drabinowitz/Documents/github/angular-me
+26 verbose already installed skipping gulp-shell@^0.2.8 /home/drabinowitz/Documents/github/angular-me
+27 verbose already installed skipping gulp-uglify@^0.3.1 /home/drabinowitz/Documents/github/angular-me
+28 verbose already installed skipping gulp-usemin@^0.3.7 /home/drabinowitz/Documents/github/angular-me
+29 verbose cache add [ 'jasmine-jquery@^1.3.3', null ]
+30 verbose cache add name=undefined spec="jasmine-jquery@^1.3.3" args=["jasmine-jquery@^1.3.3",null]
+31 verbose parsed url { protocol: null,
+31 verbose parsed url   slashes: null,
+31 verbose parsed url   auth: null,
+31 verbose parsed url   host: null,
+31 verbose parsed url   port: null,
+31 verbose parsed url   hostname: null,
+31 verbose parsed url   hash: null,
+31 verbose parsed url   search: null,
+31 verbose parsed url   query: null,
+31 verbose parsed url   pathname: 'jasmine-jquery@^1.3.3',
+31 verbose parsed url   path: 'jasmine-jquery@^1.3.3',
+31 verbose parsed url   href: 'jasmine-jquery@^1.3.3' }
+32 verbose already installed skipping karma@^0.12.21 /home/drabinowitz/Documents/github/angular-me
+33 verbose already installed skipping karma-jasmine@^0.1.5 /home/drabinowitz/Documents/github/angular-me
+34 verbose cache add name="jasmine-jquery" spec="^1.3.3" args=["jasmine-jquery","^1.3.3"]
+35 verbose parsed url { protocol: null,
+35 verbose parsed url   slashes: null,
+35 verbose parsed url   auth: null,
+35 verbose parsed url   host: null,
+35 verbose parsed url   port: null,
+35 verbose parsed url   hostname: null,
+35 verbose parsed url   hash: null,
+35 verbose parsed url   search: null,
+35 verbose parsed url   query: null,
+35 verbose parsed url   pathname: '^1.3.3',
+35 verbose parsed url   path: '^1.3.3',
+35 verbose parsed url   href: '^1.3.3' }
+36 verbose addNamed [ 'jasmine-jquery', '^1.3.3' ]
+37 verbose addNamed [ null, '>=1.3.3-0 <2.0.0-0' ]
+38 verbose already installed skipping karma-ng-html2js-preprocessor@^0.1.0 /home/drabinowitz/Documents/github/angular-me
+39 verbose already installed skipping protractor@^1.0.0-rc6 /home/drabinowitz/Documents/github/angular-me
+40 silly lockFile 4e3ffcff-jasmine-jquery-1-3-3 jasmine-jquery@^1.3.3
+41 verbose lock jasmine-jquery@^1.3.3 /home/drabinowitz/.npm/4e3ffcff-jasmine-jquery-1-3-3.lock
+42 verbose already installed skipping require@^0.5.0 /home/drabinowitz/Documents/github/angular-me
+43 verbose already installed skipping requirejs@^2.1.14 /home/drabinowitz/Documents/github/angular-me
+44 silly addNameRange { name: 'jasmine-jquery',
+44 silly addNameRange   range: '>=1.3.3-0 <2.0.0-0',
+44 silly addNameRange   hasData: false }
+45 verbose already installed skipping sqlite3@^2.2.4 /home/drabinowitz/Documents/github/angular-me
+46 verbose already installed skipping karma-chrome-launcher@^0.1.4 /home/drabinowitz/Documents/github/angular-me
+47 verbose request where is /jasmine-jquery
+48 verbose request registry https://registry.npmjs.org/
+49 verbose request id 7dc8537e941bae10
+50 verbose url raw /jasmine-jquery
+51 verbose url resolving [ 'https://registry.npmjs.org/', './jasmine-jquery' ]
+52 verbose url resolved https://registry.npmjs.org/jasmine-jquery
+53 verbose request where is https://registry.npmjs.org/jasmine-jquery
+54 info trying registry request attempt 1 at 23:01:45
+55 verbose etag "D0IYZNHB3ATJ94JGZG2LXYMK2"
+56 http GET https://registry.npmjs.org/jasmine-jquery
+57 http 304 https://registry.npmjs.org/jasmine-jquery
+58 silly registry.get cb [ 304,
+58 silly registry.get   { date: 'Tue, 27 Jan 2015 04:01:45 GMT',
+58 silly registry.get     server: 'Apache',
+58 silly registry.get     via: '1.1 varnish',
+58 silly registry.get     'last-modified': 'Tue, 27 Jan 2015 04:01:46 GMT',
+58 silly registry.get     'cache-control': 'max-age=60',
+58 silly registry.get     etag: '"D0IYZNHB3ATJ94JGZG2LXYMK2"',
+58 silly registry.get     age: '0',
+58 silly registry.get     'x-served-by': 'cache-atl6227-ATL',
+58 silly registry.get     'x-cache': 'MISS',
+58 silly registry.get     'x-cache-hits': '0',
+58 silly registry.get     'x-timer': 'S1422331305.912786,VS0,VE145',
+58 silly registry.get     vary: 'Accept',
+58 silly registry.get     'content-length': '0',
+58 silly registry.get     'keep-alive': 'timeout=10, max=50',
+58 silly registry.get     connection: 'Keep-Alive' } ]
+59 verbose etag https://registry.npmjs.org/jasmine-jquery from cache
+60 silly addNameRange number 2 { name: 'jasmine-jquery',
+60 silly addNameRange   range: '>=1.3.3-0 <2.0.0-0',
+60 silly addNameRange   hasData: true }
+61 silly addNameRange versions [ 'jasmine-jquery', [ '2.0.5', '2.0.6' ] ]
+62 silly lockFile 4e3ffcff-jasmine-jquery-1-3-3 jasmine-jquery@^1.3.3
+63 silly lockFile 4e3ffcff-jasmine-jquery-1-3-3 jasmine-jquery@^1.3.3
+64 error notarget No compatible version found: jasmine-jquery@'>=1.3.3-0 <2.0.0-0'
+64 error notarget Valid install targets:
+64 error notarget ["2.0.5","2.0.6"]
+64 error notarget
+64 error notarget This is most likely not a problem with npm itself.
+64 error notarget In most cases you or one of your dependencies are requesting
+64 error notarget a package version that doesn't exist.
+65 error System Linux 3.13.0-44-generic
+66 error command "/usr/local/bin/node" "/usr/local/bin/npm" "install"
+67 error cwd /home/drabinowitz/Documents/github/angular-me
+68 error node -v v0.10.33
+69 error npm -v 1.4.28
+70 error code ETARGET
+71 verbose exit [ 1, true ]
