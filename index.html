@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="noteCApp">
+<head>
+
+  <title>NoteC</title>
+
+  <link rel="stylesheet" href="./assets/combined-3f08ea86.css"/>
+
+</head>
+<body>
+
+  <div class="container">
+    
+    <div class="page-header">
+      
+      <h1>NoteC</h1>
+
+    <div ng-controller="tabCtrl">
+
+      <div ng-show="showOverlay" class="overlay"></div>
+      
+      <a ng-class="{ selected : isCurrentTab(tab.name) }" class="tabs" ng-repeat="tab in tabs" ng-href="{{ tab.link }}">{{ tab.name }}</a>
+      
+    </div>
+
+    </div>
+
+    <div class="noteWrapperRow row">
+      
+      <div class="noteWrapperCol col-md-12">
+        
+        <div class="noteWrapperView" ng-view></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script src="./assets/combined-8a479c35.js"></script>
+
+</body>
+</html>

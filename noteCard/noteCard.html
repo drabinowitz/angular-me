@@ -1,0 +1,65 @@
+<div class="noteCard">
+  
+  <div class="noteCardInfo noteCardSlide" ng-show="!showEdit && !showDelete">
+
+    <h3 class="noteCardTitle">{{ card.title }}</h3>
+
+    <p class="noteCardContent">{{ card.content }}</p>
+
+    <div class="noteCardTransclude" ng-transclude></div>
+
+    <div class="noteCardSelectable" ng-show="isSelectable">
+      
+      <input type="checkbox" class="noteCardSelection" ng-model="selected">
+
+    </div>
+
+    <div class="noteCardButtons">
+
+      <button class="showEdit btn btn-md btn-info" ng-click="showEditForm()">Edit</button>
+
+      <button class="showDelete btn btn-md btn-danger" ng-click="showDelete = true">Delete</button>
+
+    </div>
+
+  </div>
+
+  <div class="editCard noteCardSlide" ng-show="showEdit">
+
+    <form name="editForm" class="editCard" ng-submit="editForm.$valid && submit(editTitle,editContent)" novalidate>
+      
+      <label for="title">Edit Card Name: </label>
+
+      <textarea name="title" rows="1" cols="35" ng-required="true" ng-model="editTitle"></textarea>
+
+      <label for="content">Edit Card Content: </label>
+
+      <textarea name="content" cols="35" ng-model="editContent"></textarea>
+
+      <div class="noteCardButtons">
+
+          <button class="choose btn btn-md btn-default" type="button" ng-click="showEdit = false">Cancel</button>
+
+          <input class="choose btn btn-md btn-info" type="submit" value="Save">
+    
+      </div>
+
+    </form>
+
+  </div>
+
+    <div class="deleteCard noteCardSlide" ng-show="showDelete">
+
+      <p>Are you sure you want to delete this card?  This action cannot be reversed</p>
+
+      <div class="noteCardButtons">
+
+        <button class="choose btn btn-md btn-default" type="button" ng-click="showDelete = false">Cancel</button>
+
+        <button class="choose btn btn-md btn-danger" ng-click="deleteCard()">Delete</button>
+
+      </div>
+
+    </div>
+
+</div>
